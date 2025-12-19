@@ -13,22 +13,22 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 10px; /* small padding on mobile */
     }
 
     .container {
       text-align: left;
-      max-width: 450px; /* thinner column for letter feel */
-      padding: 20px;
-      line-height: 1.6; 
+      max-width: 450px;
+      line-height: 1.6;
     }
 
     h1 {
-      font-size: 3em; /* intro largest */
+      font-size: clamp(2.5rem, 8vw, 5rem); /* scales from mobile to desktop */
       margin-bottom: 25px;
     }
 
     p {
-      font-size: 1.3em; /* scaled body text */
+      font-size: clamp(1.5rem, 5vw, 2.5rem); /* scales proportionally */
       margin: 18px 0;
     }
 
@@ -57,11 +57,11 @@
     <p><strong>CHECK IT OUT → <a href="https://katsophia.neocities.org/Kat%20Sophia/" target="_blank">CLICK HERE</a></strong></p>
 
     <p>
-      I’d love your feedback! Comment on my <a href="https://www.instagram.com/katsoyeehaw/" target="_blank">socials</a> and let me know what you want to see.
+      My website will be here at www.katsophia.com when it's done...but in the meantime, I’d love your feedback! Comment on my <a href="https://www.instagram.com/katsoyeehaw/" target="_blank">socials</a> and let me know what you want to see.
     </p>
 
     <p>
-      P.S. You can sign up for my mailing list NOW! top right & explore the left icons for
+      P.S. You can sign up top right for my mailing list NOW + click the icons to the left for
       <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jN8vZt0ARxiFYbW9MELjfQ" target="_blank">Spotify</a>, 
       <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank">Apple Music</a>, 
       <a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank">YouTube</a>, 
