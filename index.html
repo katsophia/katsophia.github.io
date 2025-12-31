@@ -1,101 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kat Sophia</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Garamond, serif; 
+            background: url('bn20.jpg') center/cover no-repeat; 
+            min-height: 100vh; display: flex; justify-content: center; align-items: center; 
+            padding: 20px; overflow: hidden;
+        }
+        /* Shared Cursor Style */
+        .book, .page, .bookmark, .back-button { 
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer; 
+        }
+        .book-container { position: relative; width: 350px; height: 458px; }
+        .book { 
+            position: absolute; width: 100%; height: 100%; background: #8b7355; 
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.2); border-radius: 2px;
+        }
+        .cover-image { width: 100%; height: 100%; object-fit: cover; }
+        .bookmarks { 
+            position: absolute; right: -100px; top: 50%; transform: translateY(-50%); 
+            display: flex; flex-direction: column; gap: 20px; z-index: 10; 
+        }
+        .bookmark { width: 100px; height: 42px; transition: 0.3s; }
+        .bookmark:hover { transform: translateX(15px); }
+        .bookmark-shape { 
+            height: 100%; display: flex; align-items: center; justify-content: center; 
+            font-size: 12px; clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
+        }
+        /* Bookmark Colors */
+        .bookmark:nth-child(1) .bookmark-shape { background: repeating-linear-gradient(45deg, #ffd4e5 0 8px, white 8px 16px); }
+        .bookmark:nth-child(2) .bookmark-shape { background: repeating-linear-gradient(45deg, #ff6b7a 0 8px, white 8px 16px); }
+        .bookmark:nth-child(3) .bookmark-shape { background: repeating-linear-gradient(45deg, #ffd89b 0 8px, white 8px 16px); }
+        .bookmark:nth-child(4) .bookmark-shape { background: repeating-linear-gradient(45deg, #9fd477 0 8px, white 8px 16px); }
+        .bookmark:nth-child(5) .bookmark-shape { background: repeating-linear-gradient(45deg, #8dc4dd 0 8px, white 8px 16px); }
+        .bookmark:nth-child(6) .bookmark-shape { background: repeating-linear-gradient(45deg, #bf8aad 0 8px, white 8px 16px); }
 
-  <!-- SEO Metadata -->
-  <title>Kat Sophia</title>
-  <meta name="description" content="The official site for Kat Sophia">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://www.katsophia.com/">
+        .page { 
+            display: none; position: absolute; inset: 0; background: #f5e6d3; 
+            padding: 60px 40px; overflow-y: auto; animation: pageFlip 0.8s ease; 
+            box-shadow: inset 6px 0 12px rgba(0,0,0,0.05);
+        }
+        .page.active { display: block; }
+        @keyframes pageFlip { from { transform: perspective(1200px) rotateY(-90deg); opacity: 0; } to { transform: perspective(1200px) rotateY(0); opacity: 1; } }
+        
+        .back-button { position: absolute; top: 20px; right: 20px; background: white; border: none; padding: 5px 15px; border-radius: 20px; font-size: 11px; }
+        .logo { position: fixed; bottom: 20px; right: 20px; width: 120px; z-index: 0; opacity: 0.7; }
+        .social-icons { position: fixed; top: 20px; left: 20px; display: flex; gap: 15px; z-index: 100; }
+        .social-icons svg { width: 24px; height: 24px; fill: #000; }
 
-  <!-- Open Graph / Social Sharing -->
-  <meta property="og:title" content="Kat Sophia">
-  <meta property="og:description" content="The official site for Kat Sophia.">
-  <meta property="og:url" content="https://www.katsophia.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://raw.githubusercontent.com/<your-username>/<repo-name>/main/KS_logo.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kat Sophia">
-  <meta name="twitter:description" content="The official site for Kat Sophia.">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/<your-username>/<repo-name>/main/KS_logo.png">
-
-  <!-- Favicon (green planet / KS logo) -->
-  <link rel="icon" href="/KS_logo.png" type="image/png">
-
-  <!-- Styles -->
-  <style>
-    body {
-      font-family: "Times New Roman", Times, serif;
-      background-color: #fff;
-      color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 10px; /* small padding on mobile */
-    }
-
-    .container {
-      text-align: left;
-      max-width: 450px; /* thinner column for letter feel */
-      line-height: 1.6;
-    }
-
-    h1 {
-      font-size: 3em; /* original size */
-      margin-bottom: 25px;
-    }
-
-    p {
-      font-size: 1.3em; /* original size */
-      margin: 18px 0;
-    }
-
-    a {
-      color: #de83b0;
-      text-decoration: underline;
-    }
-
-    a:hover {
-      color: #b02068;
-      text-decoration: underline;
-      font-weight: bold;
-    }
-
-    strong {
-      font-weight: bold;
-    }
-  </style>
+        @media (max-width: 768px) { .book-container { width: 300px; height: 400px; } .bookmarks { right: -85px; } }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hi, it’s Kat!</h1>
 
-    <p>I’m making a new website for my music 🩷</p>
+    <div class="book-container">
+        <div class="book" id="bookCover"><img src="bookcover.jpg" class="cover-image"></div>
 
-    <p><strong>CHECK IT OUT → <a href="https://katsophia.neocities.org/Kat%20Sophia/" target="_blank">CLICK HERE</a></strong></p>
+        <div class="bookmarks">
+            <div class="bookmark" onclick="openPage('about')"><div class="bookmark-shape">about</div></div>
+            <div class="bookmark" onclick="openPage('music')"><div class="bookmark-shape">music</div></div>
+            <div class="bookmark" onclick="openPage('gallery')"><div class="bookmark-shape">gallery</div></div>
+            <div class="bookmark" onclick="openPage('shows')"><div class="bookmark-shape">shows</div></div>
+            <div class="bookmark" onclick="openPage('store')"><div class="bookmark-shape">store</div></div>
+            <div class="bookmark" onclick="openPage('contact')"><div class="bookmark-shape">contact</div></div>
+        </div>
 
-    <p>
-      My website will be here at www.katsophia.com when it's done...but in the meantime, I’d love your feedback! Comment on my <a href="https://www.instagram.com/katsoyeehaw/" target="_blank">socials</a> and let me know what you want to see.
-    </p>
+        <div class="page" id="about"><button class="back-button" onclick="closePage()">home</button><h2>About</h2><p>Content goes here...</p></div>
+        <div class="page" id="music"><button class="back-button" onclick="closePage()">home</button><h2>Music</h2></div>
+        <div class="page" id="gallery"><button class="back-button" onclick="closePage()">home</button><h2>Gallery</h2></div>
+        <div class="page" id="shows"><button class="back-button" onclick="closePage()">home</button><h2>Shows</h2></div>
+        <div class="page" id="store"><button class="back-button" onclick="closePage()">home</button><h2>Store</h2></div>
+        <div class="page" id="contact"><button class="back-button" onclick="closePage()">home</button><h2>Contact</h2></div>
+    </div>
 
-    <p>
-      P.S. On the website, you can sign up top right for my 
-<a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">Mailing List</a> and click the icons to the left for
-<a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jN8vZt0ARxiFYbW9MELjfQ" target="_blank">Spotify</a>, 
-<a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank">Apple Music</a>, 
-<a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank">YouTube</a>, 
-<a href="https://www.instagram.com/katsoyeehaw/" target="_blank">Instagram</a>, 
-<a href="https://www.tiktok.com/@katsoyeehaw/" target="_blank">TikTok</a>, 
-<a href="https://discord.gg/xVYJrqqzTC" target="_blank">Discord</a>, and 
-<a href="https://katsophia.bandcamp.com/merch" target="_blank">Bandcamp</a>.
-    </p>
-  </div>
+    <img src="logo_neo.png" class="logo">
+
+    <div class="social-icons">
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    </div>
+
+    <script>
+        function openPage(p) {
+            document.getElementById('bookCover').style.display = 'none';
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.getElementById(p).classList.add('active');
+        }
+        function closePage() {
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.getElementById('bookCover').style.display = 'block';
+        }
+        window.onload = () => openPage('about');
+    </script>
 </body>
 </html>
