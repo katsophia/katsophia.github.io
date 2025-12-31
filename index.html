@@ -161,11 +161,10 @@ body {
     padding: 20px;
 }
 
-.book-container {
+        .book-container {
             position: relative;
             width: 350px;
             height: 458px;
-            perspective: 1500px;
         }
 
         @media (max-width: 768px) {
@@ -173,7 +172,6 @@ body {
                 width: 300px;
                 height: 392px;
                 margin-right: 0;
-                perspective: 1500px;
             }
 
             .bookmarks {
@@ -678,6 +676,16 @@ body {
                 opacity: 1;
             }
         }
+
+        .page h2 {
+            font-size: 32px;
+            color: #6b5845;
+            margin-bottom: 25px;
+            font-family: Garamond, 'Times New Roman', serif;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+
         .page p {
             font-size: 17px;
             line-height: 2;
@@ -714,49 +722,48 @@ body {
             box-shadow: none;
             opacity: 0.85; /* adjust 0.1 to 1 as needed */
         }
-       /* --- Sharp Minimalist Music Links --- */
-.page h2 {
-    font-size: 24px;
-    color: #000;
-    text-transform: lowercase;
-    margin-bottom: 25px;
-    font-weight: normal;
-}
-
-.music-links {
+/* Specific styles for the Music Page only - Uniform Small Buttons */
+#music .music-links {
     display: flex;
     flex-direction: column;
-    gap: 0; 
+    gap: 8px;            
+    margin-top: 15px;    
+    align-items: center; /* This centers the column of buttons on the page */
 }
 
-.music-link-item {
+#music .music-link-item {
     display: flex;
     align-items: center;
-    padding: 20px 25px;
-    background: transparent; 
-    border: 0.5px solid #000; 
-    margin-top: -0.5px; 
+    gap: 12px;           
+    padding: 10px 15px;  
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 6px;
     text-decoration: none;
-    color: #000;
-    border-radius: 0; 
-    transition: background 0.2s ease;
+    color: #000000;      
+    font-weight: normal; 
+    transition: all 0.2s ease;
+    
+    /* These two lines make them all the same size */
+    width: 200px;        
+    box-sizing: border-box; 
 }
 
-.music-link-item:hover {
-    background: #D0878B; 
+#music .music-link-item:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px); /* Subtle lift up on hover */
 }
 
-.platform-icon {
-    width: 22px;
-    height: 22px;
-    margin-right: 20px;
-    filter: brightness(0); 
+#music .platform-icon {
+    width: 20px;         
+    height: 20px;
+    flex-shrink: 0;      /* Prevents icons from squishing */
 }
 
-.music-link-item span {
-    font-size: 18px;
-    text-transform: lowercase;
-    font-family: Garamond, serif;
+#music span {
+    font-size: 15px;     
+    letter-spacing: 0.5px;
+    text-transform: none; 
 }
     </style>
 </head>
@@ -790,47 +797,54 @@ body {
         <div class="page" id="music">
     <button class="back-button" onclick="closePage()">home</button>
     
-   <div class="music-links">
-    <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jx2my-mfTZ-r8gPW2PmbAg " target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/spotify/000000" class="platform-icon">
-        <span>spotify</span>
-    </a>
+    <div class="music-links">
+        <a href="https://open.spotify.com/artist/2pLpP9mP9y8xW0J1V1Z1Y1" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/spotify/000000" class="platform-icon">
+            <span>Spotify</span>
+        </a>
 
-    <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/apple/000000" class="platform-icon">
-        <span>apple music</span>
-    </a>
+        <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/apple/000000" class="platform-icon">
+            <span>Apple Music</span>
+        </a>
 
-    <a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/youtube/000000" class="platform-icon">
-        <span>youtube</span>
-    </a>
+        <a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/youtube/000000" class="platform-icon">
+            <span>YouTube</span>
+        </a>
+        
+        <a href="https://music.youtube.com/channel/UCFmQn3PTef-qjOXntqI4piw?si=IPjq5SWqhkB6nbKB" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/youtubemusic/000000" class="platform-icon">
+            <span>YouTube Music</span>
+        </a>
 
-    <a href="https://amazon.com/music/player/artists/B0BW9KNVFN/kat-sophia" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/amazonmusic/000000" class="platform-icon">
-        <span>amazon music</span>
-    </a>
+<a href="https://amazon.com/music/player/artists/B0BW9KNVFN/kat-sophia" target="_blank" class="music-link-item">
+    <svg class="platform-icon" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <span>Amazon Music</span>
+</a>
 
-    <a href="https://tidal.com/artist/37503659" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/tidal/000000" class="platform-icon">
-        <span>tidal</span>
-    </a>
+        <a href="https://tidal.com/artist/37503659" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/tidal/000000" class="platform-icon">
+            <span>TIDAL</span>
+        </a>
 
-    <a href="https://www.deezer.com/en/artist/202472827" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/deezer/000000" class="platform-icon">
-        <span>deezer</span>
-    </a>
+        <a href="https://www.deezer.com/en/artist/202472827" target="_blank" class="music-link-item">
+    <svg class="platform-icon" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <span>Deezer</span>
+</a>
 
-    <a href="https://www.pandora.com/artist/kat-sophia/ARdqq9Zwhd2tb5w" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/pandora/000000" class="platform-icon">
-        <span>pandora</span>
-    </a>
+        <a href="https://www.pandora.com/artist/kat-sophia/ARdqq9Zwhd2tb5w" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/pandora/000000" class="platform-icon">
+            <span>Pandora</span>
+        </a>
 
-    <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
-        <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
-        <span>bandcamp</span>
-    </a>
-</div>
+        <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
+            <span>Bandcamp</span>
         </a>
     </div>
 </div>
@@ -856,39 +870,38 @@ body {
         </div>
     </div>
     
-    <script>
-    function openPage(pageId) {
-        // 1. Hide the cover
-        document.getElementById('bookCover').style.display = 'none';
-        
-        // 2. Hide any other pages that might be open
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(p => {
-            p.style.display = 'none';
-            p.classList.remove('active');
-        });
+<script>
+        function openPage(pageId) {
+            // 1. Hide the book cover
+            document.getElementById('bookCover').style.display = 'none';
+            
+            // 2. Hide ALL pages first so they don't stack on top of each other
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none'; 
+                page.classList.remove('active');
+            });
+            
+            // 3. Show the specific page you clicked
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.style.display = 'block';
+                selectedPage.classList.add('active');
+            }
+        }
 
-        // 3. Get the new page
-        const page = document.getElementById(pageId);
-        
-        // 4. THE FIX: Show it as a block first...
-        page.style.display = 'block';
-        
-        // 5. ...then wait a tiny fraction of a second to trigger the 3D flip
-        setTimeout(() => {
-            page.classList.add('active');
-        }, 20);
-    }
-
-    function closePage() {
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(page => {
-            page.classList.remove('active');
-            page.style.display = 'none';
-        });
-        document.getElementById('bookCover').style.display = 'flex';
-    }
-</script>
+        function closePage() {
+            // 1. Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+                page.classList.remove('active');
+            });
+            
+            // 2. Bring back the Book Cover
+            document.getElementById('bookCover').style.display = 'flex'; 
+        }
+    </script>
 
 
 <!-- Social Icons Top Left -->
