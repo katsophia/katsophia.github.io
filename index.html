@@ -5,96 +5,1690 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kat Sophia</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: Garamond, serif; 
-            background: url('bn20.jpg') center/cover no-repeat; 
-            min-height: 100vh; display: flex; justify-content: center; align-items: center; 
-            padding: 20px; overflow: hidden;
-        }
-        /* Shared Cursor Style */
-        .book, .page, .bookmark, .back-button { 
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer; 
-        }
-        .book-container { position: relative; width: 350px; height: 458px; }
-        .book { 
-            position: absolute; width: 100%; height: 100%; background: #8b7355; 
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.2); border-radius: 2px;
-        }
-        .cover-image { width: 100%; height: 100%; object-fit: cover; }
-        .bookmarks { 
-            position: absolute; right: -100px; top: 50%; transform: translateY(-50%); 
-            display: flex; flex-direction: column; gap: 20px; z-index: 10; 
-        }
-        .bookmark { width: 100px; height: 42px; transition: 0.3s; }
-        .bookmark:hover { transform: translateX(15px); }
-        .bookmark-shape { 
-            height: 100%; display: flex; align-items: center; justify-content: center; 
-            font-size: 12px; clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
-        }
-        /* Bookmark Colors */
-        .bookmark:nth-child(1) .bookmark-shape { background: repeating-linear-gradient(45deg, #ffd4e5 0 8px, white 8px 16px); }
-        .bookmark:nth-child(2) .bookmark-shape { background: repeating-linear-gradient(45deg, #ff6b7a 0 8px, white 8px 16px); }
-        .bookmark:nth-child(3) .bookmark-shape { background: repeating-linear-gradient(45deg, #ffd89b 0 8px, white 8px 16px); }
-        .bookmark:nth-child(4) .bookmark-shape { background: repeating-linear-gradient(45deg, #9fd477 0 8px, white 8px 16px); }
-        .bookmark:nth-child(5) .bookmark-shape { background: repeating-linear-gradient(45deg, #8dc4dd 0 8px, white 8px 16px); }
-        .bookmark:nth-child(6) .bookmark-shape { background: repeating-linear-gradient(45deg, #bf8aad 0 8px, white 8px 16px); }
+    
+    .popup {
+  position: fixed;
+  top: 18px;
+  right: 25px;
+  background: #fff;
+  border: 0px solid #000;
+  padding: 0px;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.2);
+  display: none; /* hidden initially */
+  z-index: 1000;
+  width: 300px; /* adjust if needed */
+  border-radius: 0px; /* optional */
+  font-family: sans-serif;
+}
 
-        .page { 
-            display: none; position: absolute; inset: 0; background: #f5e6d3; 
-            padding: 60px 40px; overflow-y: auto; animation: pageFlip 0.8s ease; 
-            box-shadow: inset 6px 0 12px rgba(0,0,0,0.05);
-        }
-        .page.active { display: block; }
-        @keyframes pageFlip { from { transform: perspective(1200px) rotateY(-90deg); opacity: 0; } to { transform: perspective(1200px) rotateY(0); opacity: 1; } }
-        
-        .back-button { position: absolute; top: 20px; right: 20px; background: white; border: none; padding: 5px 15px; border-radius: 20px; font-size: 11px; }
-        .logo { position: fixed; bottom: 20px; right: 20px; width: 120px; z-index: 0; opacity: 0.7; }
-        .social-icons { position: fixed; top: 20px; left: 20px; display: flex; gap: 15px; z-index: 100; }
-        .social-icons svg { width: 24px; height: 24px; fill: #000; }
+.popup p {
+  margin: 0 0 10px 0;
+}
 
-        @media (max-width: 768px) { .book-container { width: 300px; height: 400px; } .bookmarks { right: -85px; } }
+.popup input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.popup button {
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+        .cover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or "contain" if you don't want cropping */
+    border-radius: 2px;
+    z-index: 1; /* sits above book texture, below everything else */
+}* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+body {
+    font-family: Garamond, 'Times New Roman', serif;
+    background-image: url('bn20.jpg'); /* put your image file here */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+        .social-icons {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            display: flex;
+            gap: 18px;
+            z-index: 100;
+            flex-wrap: no-wrap;
+            max-width: none;
+        }
+
+.social-icons a {
+    background: transparent; /* remove white background */
+    border-radius: 0;         /* remove circle shape */
+    box-shadow: none;         /* optional, remove shadow if needed */
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+.social-icons svg {
+    width: 29.5px;
+    height: 29.5px;
+    fill: #000000 !important; /* forces black on all icons */
+}
+
+
+        }
+
+        .social-icons a:hover svg {
+            fill: #ff6b7a;
+        }
+
+        @media (max-width: 768px) {
+            .social-icons {
+                top: 15px;
+                left: 15px;
+                gap: 12px;
+                max-width: 200px;
+            }
+
+            .social-icons a {
+                width: 36px;
+                height: 36px;
+            }
+
+            .social-icons svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+.logo {
+    position: absolute;
+    bottom: 80px;   /* moves it slightly up */
+    right: 475px;  /* moves it a lot to the left of the book */
+    width: 200px;   /* slightly smaller overall */
+    height: auto;
+    z-index: 0;     /* keeps it behind the book and bookmarks */
+    
+}
+.cover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or "contain" if you don't want cropping */
+    border-radius: 2px;
+    z-index: 1; /* sits above book texture, below everything else */
+    
+}
+        body {
+    font-family: Garamond, 'Times New Roman', serif;
+    background-image: url('bn20.jpg'); /* put your image file here */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+        .book-container {
+            position: relative;
+            width: 350px;
+            height: 458px;
+        }
+
+        @media (max-width: 768px) {
+            .book-container {
+                width: 300px;
+                height: 392px;
+                margin-right: 0;
+            }
+
+            .bookmarks {
+                right: -85px;
+                gap: 17px;
+            }
+
+            .page {
+                padding: 32px 24px;
+            }
+
+            .page h2 {
+                font-size: 20px;
+            }
+
+            .page p {
+                font-size: 12px;
+            }
+
+            .back-button {
+                padding: 4px 10px;
+                font-size: 6px;
+                letter-spacing: 0.4px;
+            }
+        }
+
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 18% 22%, rgba(139,115,85,0.18) 0%, transparent 30%),
+                radial-gradient(ellipse at 82% 78%, rgba(125,102,78,0.15) 0%, transparent 33%),
+                radial-gradient(ellipse at 50% 50%, rgba(110,90,70,0.12) 0%, transparent 40%),
+                radial-gradient(circle at 28% 68%, rgba(98,80,62,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 72% 32%, rgba(107,88,69,0.1) 0%, transparent 23%),
+                #8b7355;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: visible;
+            box-shadow: 
+                inset 0 0 0 1px rgba(0,0,0,0.18),
+                3px 3px 12px rgba(0,0,0,0.2),
+                5px 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 0.5px,
+                    rgba(0,0,0,0.025) 0.5px,
+                    rgba(0,0,0,0.025) 0.8px),
+                repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 0.5px,
+                    rgba(0,0,0,0.025) 0.5px,
+                    rgba(0,0,0,0.025) 0.8px),
+                repeating-linear-gradient(43deg,
+                    transparent,
+                    transparent 1.8px,
+                    rgba(0,0,0,0.015) 1.8px,
+                    rgba(0,0,0,0.015) 2.5px),
+                repeating-linear-gradient(-47deg,
+                    transparent,
+                    transparent 1.8px,
+                    rgba(0,0,0,0.015) 1.8px,
+                    rgba(0,0,0,0.015) 2.5px),
+                repeating-linear-gradient(88deg,
+                    transparent,
+                    transparent 3.5px,
+                    rgba(0,0,0,0.012) 3.5px,
+                    rgba(0,0,0,0.012) 4.5px),
+                radial-gradient(ellipse at 20% 26%, rgba(0,0,0,0.028) 0%, transparent 26%),
+                radial-gradient(ellipse at 80% 74%, rgba(0,0,0,0.024) 0%, transparent 28%),
+                radial-gradient(circle at 33% 67%, rgba(0,0,0,0.02) 0%, transparent 16%),
+                radial-gradient(circle at 67% 33%, rgba(0,0,0,0.02) 0%, transparent 18%),
+                radial-gradient(circle at 12% 88%, rgba(0,0,0,0.015) 0%, transparent 14%),
+                radial-gradient(circle at 88% 12%, rgba(0,0,0,0.015) 0%, transparent 16%);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+
+
+        .book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, 
+                    transparent, 
+                    transparent 2px, 
+                    rgba(0,0,0,0.03) 2px, 
+                    rgba(0,0,0,0.03) 3px),
+                repeating-linear-gradient(90deg, 
+                    transparent, 
+                    transparent 2px, 
+                    rgba(0,0,0,0.03) 2px, 
+                    rgba(0,0,0,0.03) 3px);
+            border-radius: 3px;
+            pointer-events: none;
+           
+        }
+
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2));
+        }
+
+        .heart-border {
+            position: absolute;
+            width: 270px;
+            height: 245px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .heart-border::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 190px;
+            height: 190px;
+            background: #f5e6d3;
+            transform: translateX(-50%) rotate(45deg);
+            transform-origin: center center;
+        }
+
+        .heart-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 270px;
+            height: 135px;
+            background: 
+                radial-gradient(circle at 33% 50%, #f5e6d3 95px, transparent 96px),
+                radial-gradient(circle at 67% 50%, #f5e6d3 95px, transparent 96px);
+        }
+
+        .heart {
+            position: absolute;
+            width: 250px;
+            height: 225px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .heart::before {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 177px;
+            height: 177px;
+            background: 
+                radial-gradient(ellipse at 45% 45%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                linear-gradient(135deg, #ffd4e5 0%, #ffc9de 50%, #ffbed7 100%);
+            transform: translateX(-50%) rotate(45deg);
+            transform-origin: center center;
+        }
+
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 125px;
+            background: 
+                radial-gradient(circle at 33% 50%, 
+                    rgba(255,255,255,0.1) 0%,
+                    #ffd4e5 30%, 
+                    #ffc9de 60%,
+                    #ffbed7 88px, 
+                    transparent 89px),
+                radial-gradient(circle at 67% 50%, 
+                    rgba(255,255,255,0.1) 0%,
+                    #ffd4e5 30%, 
+                    #ffc9de 60%,
+                    #ffbed7 88px, 
+                    transparent 89px);
+        }
+
+        .heart-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(2deg,
+                    transparent,
+                    transparent 1.5px,
+                    rgba(0,0,0,0.01) 1.5px,
+                    rgba(0,0,0,0.01) 2px),
+                repeating-linear-gradient(88deg,
+                    transparent,
+                    transparent 1.5px,
+                    rgba(0,0,0,0.01) 1.5px,
+                    rgba(0,0,0,0.01) 2px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-container {
+            position: relative;
+            width: 360px;
+            height: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-border {
+            position: relative;
+            width: 300px;
+            height: 270px;
+            background: transparent;
+        }
+
+        .heart-border::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 210px;
+            height: 210px;
+            background: #f5e6d3;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .heart-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: 
+                radial-gradient(circle at 25% 50%, #f5e6d3 70px, transparent 71px),
+                radial-gradient(circle at 75% 50%, #f5e6d3 70px, transparent 71px);
+        }
+
+        .heart {
+            position: relative;
+            width: 280px;
+            height: 250px;
+            background: transparent;
+        }
+
+        .heart::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 180px;
+            background: 
+                linear-gradient(135deg, 
+                    #ff7580 0%, 
+                    #ff6b7a 40%, 
+                    #ff6570 60%,
+                    #ff6b7a 100%);
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: 
+                radial-gradient(circle at 25% 50%, 
+                    #ff7580 0%, 
+                    #ff6b7a 50%, 
+                    #ff6570 60px, 
+                    transparent 61px),
+                radial-gradient(circle at 75% 50%, 
+                    #ff7580 0%, 
+                    #ff6b7a 50%, 
+                    #ff6570 60px, 
+                    transparent 61px);
+        }
+
+        .heart-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(47deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.04) 2px,
+                    rgba(0,0,0,0.04) 4px),
+                repeating-linear-gradient(-43deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px),
+                radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 60% 70%, rgba(0,0,0,0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .bookmarks {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .bookmark {
+            width: 100px;
+            height: 42px;
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+            transition: transform 0.3s;
+            transform-origin: left center;
+            filter: brightness(1);
+        }
+/* Pencil cursor on book cover and pages */
+.book,
+.page {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+}
+
+        .bookmark:hover {
+            transform: translateX(15px);
+            filter: brightness(1.05);
+        }
+
+        .bookmark-shape {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: normal;
+            font-family: Garamond, 'Times New Roman', serif;
+            letter-spacing: 0.8px;
+            color: #1a1a1a;
+            border-radius: 2px 0 0 2px;
+            clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
+            border: 1px solid rgba(0,0,0,0.1);
+            
+        }
+
+        .bookmark:nth-child(1) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ffd4e5 0px,
+                    #ffd4e5 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(2) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ff6b7a 0px,
+                    #ff6b7a 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(3) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ffd89b 0px,
+                    #ffd89b 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(4) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #9fd477 0px,
+                    #9fd477 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(5) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #8dc4dd 0px,
+                    #8dc4dd 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(6) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #bf8aad 0px,
+                    #bf8aad 8px,
+                    white 8px,
+                    white 16px);
+        }
+
+        .page {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 12% 18%, rgba(139,115,85,0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 88% 82%, rgba(139,115,85,0.05) 0%, transparent 42%),
+                linear-gradient(to bottom, 
+                    #faf0e2 0%, 
+                    #f8ede0 20%, 
+                    #f5e6d3 50%, 
+                    #f2dfc6 80%, 
+                    #f0d9be 100%);
+            border-radius: 0 2px 2px 0;
+            padding: 60px 50px;
+            overflow-y: auto;
+            animation: pageFlip 0.8s ease;
+            transform-origin: left center;
+            box-shadow: 
+                -2px 0 8px rgba(0,0,0,0.12),
+                inset 6px 0 12px rgba(139,115,85,0.08);
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 22px,
+                    rgba(139,115,85,0.04) 22px,
+                    rgba(139,115,85,0.04) 22.5px),
+                radial-gradient(ellipse at 30% 40%, rgba(139,115,85,0.03) 0%, transparent 25%),
+                radial-gradient(ellipse at 70% 60%, rgba(139,115,85,0.025) 0%, transparent 27%);
+            pointer-events: none;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, 
+                rgba(139,115,85,0.12) 0%, 
+                rgba(139,115,85,0.06) 40%,
+                transparent 100%);
+            pointer-events: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageFlip {
+            0% {
+                transform: perspective(1200px) rotateY(-90deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(1200px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        .page h2 {
+            font-size: 32px;
+            color: #6b5845;
+            margin-bottom: 25px;
+            font-family: Garamond, 'Times New Roman', serif;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+
+        .page p {
+            font-size: 17px;
+            line-height: 2;
+            color: #5a4a3a;
+            margin-bottom: 18px;
+            font-family: Garamond, 'Times New Roman', serif;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #1a1a1a;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+            font-weight: normal;
+            font-size: 12px;
+            font-family: Garamond, 'Times New Roman', serif;
+            letter-spacing: 0.8px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+            background: #f5f5f5;
+        }
+                /* add your new style here */
+        .social-icons a {
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            opacity: 0.85; /* adjust 0.1 to 1 as needed */
+        }
     </style>
 </head>
 <body>
-
     <div class="book-container">
-        <div class="book" id="bookCover"><img src="bookcover.jpg" class="cover-image"></div>
-
-        <div class="bookmarks">
-            <div class="bookmark" onclick="openPage('about')"><div class="bookmark-shape">about</div></div>
-            <div class="bookmark" onclick="openPage('music')"><div class="bookmark-shape">music</div></div>
-            <div class="bookmark" onclick="openPage('gallery')"><div class="bookmark-shape">gallery</div></div>
-            <div class="bookmark" onclick="openPage('shows')"><div class="bookmark-shape">shows</div></div>
-            <div class="bookmark" onclick="openPage('store')"><div class="bookmark-shape">store</div></div>
-            <div class="bookmark" onclick="openPage('contact')"><div class="bookmark-shape">contact</div></div>
+        <div class="book" id="bookCover">
+            <img src="bookcover.jpg" class="cover-image">
         </div>
 
-        <div class="page" id="about"><button class="back-button" onclick="closePage()">home</button><h2>About</h2><p>Content goes here...</p></div>
-        <div class="page" id="music"><button class="back-button" onclick="closePage()">home</button><h2>Music</h2></div>
-        <div class="page" id="gallery"><button class="back-button" onclick="closePage()">home</button><h2>Gallery</h2></div>
-        <div class="page" id="shows"><button class="back-button" onclick="closePage()">home</button><h2>Shows</h2></div>
-        <div class="page" id="store"><button class="back-button" onclick="closePage()">home</button><h2>Store</h2></div>
-        <div class="page" id="contact"><button class="back-button" onclick="closePage()">home</button><h2>Contact</h2></div>
+        <div class="bookmarks">
+            <div class="bookmark" onclick="closePage()">
+                <div class="bookmark-shape">home</div>
+            </div>
+            <div class="bookmark" onclick="openPage('music')">
+                <div class="bookmark-shape">music</div>
+            </div>
+            <div class="bookmark" onclick="openPage('gallery')">
+                <div class="bookmark-shape">gallery</div>
+            </div>
+            <div class="bookmark" onclick="openPage('shows')">
+                <div class="bookmark-shape">shows</div>
+            </div>
+            <div class="bookmark" onclick="openPage('store')">
+                <div class="bookmark-shape">store</div>
+            </div>
+            <div class="bookmark" onclick="openPage('contact')">
+                <div class="bookmark-shape">contact</div>
+            </div>
+        </div>
+
+        <div class="page" id="music">
+            <button class="back-button" onclick="closePage()">home</button>
+            <!-- Add your music content here -->
+        </div>
+
+        <div class="page" id="gallery">
+            <button class="back-button" onclick="closePage()">home</button>
+            <!-- Add your gallery content here -->
+        </div>
+
+        <div class="page" id="shows">
+            <button class="back-button" onclick="closePage()">home</button>
+            <!-- Add your shows content here -->
+        </div>
+
+        <div class="page" id="store">
+            <button class="back-button" onclick="closePage()">home</button>
+            <!-- Add your store content here -->
+        </div>
+
+        <div class="page" id="contact">
+            <button class="back-button" onclick="closePage()">home</button>
+            <!-- Add your contact content here -->
+        </div>
     </div>
+    
+    <img src="logo_neo.png" alt="My Logo" class="logo">
 
-    <img src="logo_neo.png" class="logo">
-
-    <div class="social-icons">
-        <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-    </div>
-
+    <!-- Logo -->
+    <img src="logo_neo.png" alt="My Logo" class="logo">
+    
     <script>
-        function openPage(p) {
+        function openPage(pageId) {
             document.getElementById('bookCover').style.display = 'none';
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById(p).classList.add('active');
+            document.getElementById(pageId).classList.add('active');
         }
+
         function closePage() {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById('bookCover').style.display = 'block';
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('bookCover').style.display = 'flex';
         }
-        window.onload = () => openPage('about');
     </script>
+
+
+<!-- Social Icons Top Left -->
+<div class="social-icons">
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/katsoyeehaw/" target="_blank" aria-label="Instagram">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Instagram--Streamline-Simple-Icons" height="24" width="24">
+  <desc>
+    Instagram Streamline Icon: https://streamlinehq.com
+  </desc>
+  <title>Instagram</title>
+  <path d="M7.0301 0.084c-1.2768 0.0602 -2.1487 0.264 -2.911 0.5634 -0.7888 0.3075 -1.4575 0.72 -2.1228 1.3877 -0.6652 0.6677 -1.075 1.3368 -1.3802 2.127 -0.2954 0.7638 -0.4956 1.6365 -0.552 2.914 -0.0564 1.2775 -0.0689 1.6882 -0.0626 4.947 0.0062 3.2586 0.0206 3.6671 0.0825 4.9473 0.061 1.2765 0.264 2.1482 0.5635 2.9107 0.308 0.7889 0.72 1.4573 1.388 2.1228 0.6679 0.6655 1.3365 1.0743 2.1285 1.38 0.7632 0.295 1.6361 0.4961 2.9134 0.552 1.2773 0.056 1.6884 0.069 4.9462 0.0627 3.2578 -0.0062 3.668 -0.0207 4.9478 -0.0814 1.28 -0.0607 2.147 -0.2652 2.9098 -0.5633 0.7889 -0.3086 1.4578 -0.72 2.1228 -1.3881 0.665 -0.6682 1.0745 -1.3378 1.3795 -2.1284 0.2957 -0.7632 0.4966 -1.636 0.552 -2.9124 0.056 -1.2809 0.0692 -1.6898 0.063 -4.948 -0.0063 -3.2583 -0.021 -3.6668 -0.0817 -4.9465 -0.0607 -1.2797 -0.264 -2.1487 -0.5633 -2.9117 -0.3084 -0.7889 -0.72 -1.4568 -1.3876 -2.1228C21.2982 1.33 20.628 0.9208 19.8378 0.6165 19.074 0.321 18.2017 0.1197 16.9244 0.0645 15.6471 0.0093 15.236 -0.005 11.977 0.0014 8.718 0.0076 8.31 0.0215 7.0301 0.0839m0.1402 21.6932c-1.17 -0.0509 -1.8053 -0.2453 -2.2287 -0.408 -0.5606 -0.216 -0.96 -0.4771 -1.3819 -0.895 -0.422 -0.4178 -0.6811 -0.8186 -0.9 -1.378 -0.1644 -0.4234 -0.3624 -1.058 -0.4171 -2.228 -0.0595 -1.2645 -0.072 -1.6442 -0.079 -4.848 -0.007 -3.2037 0.0053 -3.583 0.0607 -4.848 0.05 -1.169 0.2456 -1.805 0.408 -2.2282 0.216 -0.5613 0.4762 -0.96 0.895 -1.3816 0.4188 -0.4217 0.8184 -0.6814 1.3783 -0.9003 0.423 -0.1651 1.0575 -0.3614 2.227 -0.4171 1.2655 -0.06 1.6447 -0.072 4.848 -0.079 3.2033 -0.007 3.5835 0.005 4.8495 0.0608 1.169 0.0508 1.8053 0.2445 2.228 0.408 0.5608 0.216 0.96 0.4754 1.3816 0.895 0.4217 0.4194 0.6816 0.8176 0.9005 1.3787 0.1653 0.4217 0.3617 1.056 0.4169 2.2263 0.0602 1.2655 0.0739 1.645 0.0796 4.848 0.0058 3.203 -0.0055 3.5834 -0.061 4.848 -0.051 1.17 -0.245 1.8055 -0.408 2.2294 -0.216 0.5604 -0.4763 0.96 -0.8954 1.3814 -0.419 0.4215 -0.8181 0.6811 -1.3783 0.9 -0.4224 0.1649 -1.0577 0.3617 -2.2262 0.4174 -1.2656 0.0595 -1.6448 0.072 -4.8493 0.079 -3.2045 0.007 -3.5825 -0.006 -4.848 -0.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0 -1.437 1.4424M5.8385 12.012c0.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026 -0.0065 6.157 -2.7701 6.1506 -6.1733 -0.0065 -3.4032 -2.771 -6.1565 -6.174 -6.1498 -3.403 0.0067 -6.156 2.771 -6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077" fill="#000000" stroke-width="1"></path>
+</svg>
+  </a>
+
+  <!-- TikTok -->
+  <a href="https://www.tiktok.com/@katsoyeehaw/" target="_blank" aria-label="TikTok">
+   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Tiktok--Streamline-Simple-Icons" height="24" width="24">
+  <desc>
+    Tiktok Streamline Icon: https://streamlinehq.com
+  </desc>
+  <title>TikTok</title>
+  <path d="M12.525 0.02c1.31 -0.02 2.61 -0.01 3.91 -0.02 0.08 1.53 0.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44 -0.05 -2.89 -0.35 -4.2 -0.97 -0.57 -0.26 -1.1 -0.59 -1.62 -0.93 -0.01 2.92 0.01 5.84 -0.02 8.75 -0.08 1.4 -0.54 2.79 -1.35 3.94 -1.31 1.92 -3.58 3.17 -5.91 3.21 -1.43 0.08 -2.86 -0.31 -4.08 -1.03 -2.02 -1.19 -3.44 -3.37 -3.65 -5.71 -0.02 -0.5 -0.03 -1 -0.01 -1.49 0.18 -1.9 1.12 -3.72 2.58 -4.96 1.66 -1.44 3.98 -2.13 6.15 -1.72 0.02 1.48 -0.04 2.96 -0.04 4.44 -0.99 -0.32 -2.15 -0.23 -3.02 0.37 -0.63 0.41 -1.11 1.04 -1.36 1.75 -0.21 0.51 -0.15 1.07 -0.14 1.61 0.24 1.64 1.82 3.02 3.5 2.87 1.12 -0.01 2.19 -0.66 2.77 -1.61 0.19 -0.33 0.4 -0.67 0.41 -1.06 0.1 -1.79 0.06 -3.57 0.07 -5.36 0.01 -4.03 -0.01 -8.05 0.02 -12.07z" fill="#000000" stroke-width="1"></path>
+</svg>
+  </a>
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank" aria-label="YouTube">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+  <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+</svg>
+  </a>
+
+  <!-- Discord -->
+  <a href="https://discord.gg/xVYJrqqzTC" target="_blank" aria-label="Discord">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+  <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+</svg>
+  </a>
+
+  <!-- Spotify -->
+  <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jN8vZt0ARxiFYbW9MELjfQ" target="_blank" aria-label="Spotify">
+   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
+  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/>
+</svg>
+  </a>
+
+  <!-- Apple Music -->
+  <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" aria-label="Apple Music">
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Apple Music</title><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/></svg>
+  </a>
+
+  <!-- Bandcamp -->
+  <a href="https://katsophia.bandcamp.com/merch" target="_blank" aria-label="Bandcamp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="48" height="48" fill="#000000" style="opacity:1;"><path  d="M0 791.667h694.444L1000 208.333H333.334z"/></svg>
+  </a>
+</div>
+
+
+<style>
+
+#popup form, 
+#popup form * {
+    border: none !important;      /* Removes all borders */
+    outline: none !important;     /* Removes any focus outlines */
+    box-shadow: none !important;  /* Removes any shadow lines */
+}
+
+/* Popup container */
+#newsletter-popup {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    background: transparent;
+    padding: 8px;
+    font-family: 'Times New Roman', serif;
+    text-transform: lowercase;
+    font-size: 18px; /* smaller font size */
+    z-index: 9999;
+    text-align: center;
+    opacity: 0.9;
+}
+
+/* Email input */
+#newsletter-popup input[type="email"] {
+    padding: 5px;
+    font-family: 'Times New Roman', serif;
+    font-size: 17px; /* smaller input text */
+    border: 1px solid black;
+    border-radius: 0;
+    outline: none;
+    margin-right: 5px;
+    opacity: 0.9;
+}
+
+/* Submit button */
+#newsletter-popup button {
+    padding: 5px 10px;
+    font-family: 'Times New Roman', serif;
+    font-size: 17px; /* smaller button text */
+    border: 1px solid black;
+    border-radius: 0;
+    background: transparent;
+    color: black;
+    cursor: pointer;
+    opacity: 0.9;
+}
+</style>
+
+<!-- MailerLite Popup -->
+<div id="popup" class="popup">
+  <span id="close-popup" class="close">&times;</span>
+
+<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1765273");</style>
+    <style type="text/css">
+    
+    /* LOADER */
+    .ml-form-embedSubmitLoad {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .g-recaptcha {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    height: ;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    .ml-form-embedSubmitLoad:after {
+      content: " ";
+      display: block;
+      width: 11px;
+      height: 11px;
+      margin: 1px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+    border-color: #ffffff #ffffff #ffffff transparent;
+    animation: ml-form-embedSubmitLoad 1.2s linear infinite;
+    }
+    @keyframes ml-form-embedSubmitLoad {
+      0% {
+      transform: rotate(0deg);
+      }
+      100% {
+      transform: rotate(360deg);
+      }
+    }
+      #mlb2-34465215.ml-form-embedContainer {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 auto;
+        position: static;
+        width: 100% !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer h4,
+      #mlb2-34465215.ml-form-embedContainer p,
+      #mlb2-34465215.ml-form-embedContainer span,
+      #mlb2-34465215.ml-form-embedContainer button {
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper {
+        background-color: #FFFFF;
+        background-image: url(https://storage.mlcdn.com/account_image/1975081/znaNFfsFLc3VVJCL5s5HQa9ELOJ11xRWdxS1neeC.png); background-position: center center; background-repeat: no-repeat; background-size: cover;
+        border-width: 0px;
+        border-color: transparent;
+        border-radius: 2px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        position: relative;
+              }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { width: 400px; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 400px; width: 100%; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-align-left { text-align: left; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-align-center { text-align: center; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-align-default { display: table-cell !important; vertical-align: middle !important; text-align: center !important; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-align-right { text-align: right; }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        height: auto;
+        margin: 0 auto !important;
+        max-width: 100%;
+        width: undefinedpx;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody {
+        padding: 20px 20px 0 20px;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody.ml-form-embedBodyHorizontal {
+        padding-bottom: 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent {
+        text-align: left;
+        margin: 0 0 20px 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 {
+        color: #000000;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 30px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
+        text-align: left;
+        word-break: break-word;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p {
+        color: #000000;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 21px;
+        margin: 0 0 10px 0;
+        text-align: left;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ul,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ul,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol {
+        color: #000000;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 15px;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol {
+        list-style-type: lower-alpha;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent ol ol ol,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent ol ol ol {
+        list-style-type: lower-roman;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p a,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p a {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group {
+        text-align: left!important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label {
+        margin-bottom: 5px;
+        color: #333333;
+        font-size: 14px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-weight: bold; font-style: normal; text-decoration: none;;
+        display: inline-block;
+        line-height: 20px;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p:last-child,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p:last-child {
+        margin: 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form {
+        margin: 0;
+        width: 100%;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        margin: 0 0 20px 0;
+        width: 100%;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow {
+        float: left;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent.horozintalForm {
+        margin: 0;
+        padding: 0 0 20px 0;
+        width: 100%;
+        height: auto;
+        float: left;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow {
+        margin: 0 0 10px 0;
+        width: 100%;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item {
+        margin: 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-formfieldHorizintal {
+        margin: 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-webkit-input-placeholder,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-webkit-input-placeholder { color: #333333; }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input::-moz-placeholder,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input::-moz-placeholder { color: #333333; }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-ms-input-placeholder,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-ms-input-placeholder { color: #333333; }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input:-moz-placeholder,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input:-moz-placeholder { color: #333333; }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow textarea {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14px !important;
+        height: auto;
+        line-height: 21px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          border-color: #cccccc!important;
+          background-color: #ffffff!important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input.custom-control-input[type="checkbox"]{
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+        border-radius: 4px!important;
+      }
+
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input:checked~.custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input:checked~.custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox input[type=checkbox]:checked~.label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+          border-color: #000000!important;
+          background-color: #000000!important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label::after {
+           top: 2px;
+           box-sizing: border-box;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+           top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+        top: 0px!important;
+           box-sizing: border-box!important;
+      }
+
+       #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after {
+            top: 0px!important;
+            box-sizing: border-box!important;
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+       }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before {
+        top: 0px!important;
+        box-sizing: border-box!important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-control-label::after {
+          position: absolute;
+          top: 2px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::before, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::before {
+          position: absolute;
+          top: 4px;
+          left: -1.5rem;
+          display: block;
+          width: 16px;
+          height: 16px;
+          pointer-events: none;
+          content: "";
+          background-color: #ffffff;
+          border: #adb5bd solid 1px;
+          border-radius: 50%;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          position: absolute;
+          top: 0px!important;
+          left: -1.5rem;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          content: "";
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-radio .custom-control-label::after {
+          background: no-repeat 50%/50% 50%;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .custom-checkbox .custom-control-label::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsOptionsCheckbox .label-description::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-interestGroupsRow .ml-form-interestGroupsRowCheckbox .label-description::after, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
+          background: no-repeat 50%/50% 50%;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-control, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-input, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-input, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-input, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-input {
+          position: absolute;
+          z-index: -1;
+          opacity: 0;
+          box-sizing: border-box;
+          padding: 0;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-radio .custom-control-label, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-radio .custom-control-label, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-checkbox .custom-control-label, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-checkbox .custom-control-label {
+          color: #000000;
+          font-size: 12px!important;
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          line-height: 22px;
+          margin-bottom: 0;
+          position: relative;
+          vertical-align: top;
+          font-style: normal;
+          font-weight: 700;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow .custom-select, #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow .custom-select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border-color: #cccccc;
+        border-radius: 4px !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 28px 10px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('https://assets.mlcdn.com/ml/images/default/dropdown.svg') no-repeat right .75rem center/8px 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow {
+        height: auto;
+        width: 100%;
+        float: left;
+      }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 70%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { width: 30%; float: left; }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { padding-top: 25px;  }
+      .ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { box-sizing: border-box; float: left; padding-right: 10px;  }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
+        background-color: #ffffff;
+        color: #333333;
+        border-color: #cccccc;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 10px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: initial;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
+        background-color: #000000 !important;
+        border-color: #000000;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 2px;
+        box-shadow: none;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 16px !important;
+        font-weight: 700;
+        line-height: 20px;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100%;
+        height: auto;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
+        background-color: #333333 !important;
+        border-color: #333333 !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        margin-top: 5px;
+        margin-left: -1.5rem;
+        overflow: visible;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description {
+        color: #000000;
+        display: block;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 0;
+        position: relative;
+        vertical-align: top;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label {
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: block;
+        min-height: 24px;
+        padding-left: 24px;
+
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label a {
+        color: #000000;
+        text-decoration: underline;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p {
+        color: #000000 !important;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        line-height: 18px !important;
+        padding: 0 !important;
+        margin: 0 5px 0 0 !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label p:last-child {
+        margin: 0;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit {
+        margin: 0 0 20px 0;
+        float: left;
+        width: 100%;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+        background-color: #000000 !important;
+        border: none !important;
+        border-radius: 2px !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        font-family: 'Times New Roman', Times, serif !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        line-height: 21px !important;
+        height: auto;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
+        display: none;
+      }
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+        background-color: #333333 !important;
+      }
+      .ml-subscribe-close {
+        width: 30px;
+        height: 30px;
+        background: url('https://assets.mlcdn.com/ml/images/default/modal_close.png') no-repeat;
+        background-size: 30px;
+        cursor: pointer;
+        margin-top: -10px;
+        margin-right: -10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      .ml-error input, .ml-error textarea, .ml-error select {
+        border-color: red!important;
+      }
+
+      .ml-error .custom-checkbox-radio-list {
+        border: 1px solid red !important;
+        border-radius: 2px;
+        padding: 10px;
+      }
+
+      .ml-error .label-description,
+      .ml-error .label-description p,
+      .ml-error .label-description p a,
+      .ml-error label:first-child {
+        color: #ff0000 !important;
+      }
+
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p,
+      #mlb2-34465215.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow.ml-error .label-description p:first-letter {
+        color: #ff0000 !important;
+      }
+            @media only screen and (max-width: 400px){
+
+        .ml-form-embedWrapper.embedDefault, .ml-form-embedWrapper.embedPopup { width: 100%!important; }
+        .ml-form-formContent.horozintalForm { float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow { height: auto!important; width: 100%!important; float: left!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { padding-right: 0px!important; padding-bottom: 10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+
+      }
+      
+/* MOBILE ONLY — top right, slightly wider, same height */
+@media (max-width: 768px) {
+
+  #mlb2-34465215 {
+    position: fixed !important;
+    top: 1px !important;
+    right: 1px !important;
+
+    width: auto !important;         
+    max-width: 280px !important;     /* slightly wider */
+    transform: scale(0.65);          /* keeps everything proportionally smaller */
+    transform-origin: top right;    
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 1px !important;
+    z-index: 9999;
+  }
+
+  /* Inputs + button */
+  #mlb2-34465215 input,
+  #mlb2-34465215 button {
+    font-size: 10px !important;     /* matches scaled size */
+    padding: 3px 5px !important;    
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Close button (X) */
+  #mlb2-34465215 .ml-form-close {
+    display: block !important;
+    position: absolute !important;
+    top: 1px !important;    
+    right: 1px !important;  
+    font-size: 12px !important;      
+    cursor: pointer !important;
+    z-index: 10000 !important;
+  }
+}
+
+
+    </style>
+      
+    <div id="mlb2-34465215" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-34465215">
+      <div class="ml-form-align-center ">
+        <div class="ml-form-embedWrapper embedForm">
+
+          
+          
+
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+
+            <div class="ml-form-embedContent" style=" ">
+              
+                <h4>sign up!</h4>
+                <p>let's keep in touch&nbsp;🩷</p>
+              
+            </div>
+
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1975081/forms/173409734897960151/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                
+
+                  
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                      
+
+
+                      <!-- input -->
+                      <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="email" autocomplete="email">
+                      <!-- /input -->
+
+                      <!-- textarea -->
+                      
+                      <!-- /textarea -->
+
+                      <!-- select -->
+                      
+                      <!-- /select -->
+
+                      <!-- checkboxes -->
+            
+            <!-- /checkboxes -->
+
+                      <!-- radio -->
+                      
+                      <!-- /radio -->
+
+                      <!-- countries -->
+                      
+                      <!-- /countries -->
+
+
+
+
+
+                    </div>
+                  </div>
+                
+              </div>
+
+              
+
+              <!-- Privacy policy -->
+              
+              <!-- /Privacy policy -->
+
+              
+
+              
+
+              
+
+
+
+
+
+
+              
+              <input type="hidden" name="ml-submit" value="1">
+
+              <div class="ml-form-embedSubmit">
+                
+                  <button type="submit" class="primary">join</button>
+                
+                <button disabled="disabled" style="display: none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                  <span class="sr-only">Loading...</span>
+                </button>
+              </div>
+
+              
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+
+          <div class="ml-form-successBody row-success" style="display: none">
+
+            <div class="ml-form-successContent">
+              
+                <h4>Thank you!</h4>
+                
+                  <p>You have successfully joined our subscriber list.</p>
+                
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+  
+  
+  <script>
+    function ml_webform_success_34465215() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-34465215 .row-success').show();
+      $('.ml-subscribe-form-34465215 .row-form').hide();
+    }
+      </script>
+  
+  
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+        <script>
+            fetch("https://assets.mailerlite.com/jsonp/1975081/forms/173409734897960151/takel")
+        </script>
+
+<script>
+  window.addEventListener('load', () => {
+    const popup = document.getElementById('popup');
+    const close = document.getElementById('close-popup');
+
+    // Show popup after page loads
+    popup.style.display = 'block';
+
+    // Close popup when X is clicked
+    close.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  });
+</script>
+
+
 </body>
 </html>
