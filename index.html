@@ -722,6 +722,78 @@ body {
             box-shadow: none;
             opacity: 0.85; /* adjust 0.1 to 1 as needed */
         }
+        /* --- MOBILE OVERRIDES --- */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: center; 
+        /* Prevents content from being cut off on short screens */
+        min-height: -webkit-fill-available; 
+    }
+
+    .book-container {
+        width: 90vw; /* Scales with the phone width */
+        height: 115vw; /* Maintains the book aspect ratio */
+        max-width: 320px;
+        max-height: 410px;
+    }
+
+    /* Moves the navigation tabs to the bottom so they don't get cut off */
+    .bookmarks {
+        right: 0;
+        left: 0;
+        top: auto;
+        bottom: -70px; /* Positioned below the book */
+        transform: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .bookmark {
+        width: 75px; /* Smaller tabs for mobile fingers */
+        height: 32px;
+    }
+
+    .bookmark-shape {
+        font-size: 10px;
+        clip-path: none; /* Simplifies shape for better tapping */
+        border-radius: 4px;
+        background: white !important; /* Makes them pop against background */
+    }
+
+    .bookmark:hover {
+        transform: translateY(-5px); /* Lift up instead of right */
+    }
+
+    /* Adjust the social icons so they don't overlap your "home" tab */
+    .social-icons {
+        top: 10px;
+        left: 10px;
+        gap: 10px;
+    }
+
+    .social-icons svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Ensure the inside of the book is readable */
+    .page {
+        padding: 40px 20px;
+    }
+
+    .page h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .page p {
+        font-size: 15px;
+        line-height: 1.6;
+}
     </style>
 </head>
 <body>
