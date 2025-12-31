@@ -915,9 +915,14 @@ body {
 </head>
 <body>
     <div class="book-container">
-        <div class="book" id="bookCover">
-            <img src="bookcover.jpg" class="cover-image">
-        </div>
+    <div class="book" id="bookCover">
+        <img src="bookcover.jpg" class="cover-image">
+        
+        <a href="https://open.spotify.com/track/0ZVuznKmgWPjJPWQYfiw18?si=667293411a204de4" 
+           target="_blank" 
+           class="heart-hotspot">
+        </a>
+    </div>
 
         <div class="bookmarks">
             <div class="bookmark" onclick="closePage()">
@@ -1815,6 +1820,48 @@ body {
     cursor: pointer !important;
     z-index: 10000 !important;
   }
+
+/* Small White Heart Hotspot */
+.book {
+    position: relative;
+}
+
+.heart-hotspot {
+    position: absolute;
+    /* Adjust these % to align with the heart on your cover */
+    top: 48%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 40px; 
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.heart-hotspot::after {
+    content: '♡'; /* Using your specific heart */
+    font-size: 20px; /* This makes it "really small" */
+    color: white;
+    font-weight: bold;
+    opacity: 0; /* Hidden until hover */
+    transition: all 0.3s ease;
+    
+    /* These lines handle the "fill it white" effect */
+    background: transparent;
+    border-radius: 50%;
+}
+
+/* Light up transparent white on hover */
+.heart-hotspot:hover::after {
+    opacity: 0.7; /* Makes it opaque/semi-transparent white */
+    content: '♥'; /* Switches to a solid heart on hover to "fill" it */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Soft glow */
+}
 }
 
 
