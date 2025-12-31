@@ -722,6 +722,35 @@ body {
             box-shadow: none;
             opacity: 0.85; /* adjust 0.1 to 1 as needed */
         }
+        .music-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.music-link-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(139, 115, 85, 0.1);
+    text-decoration: none;
+    color: #5a4a3a;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.music-link-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: #000;
+}
+
+.platform-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
     </style>
 </head>
 <body>
@@ -752,9 +781,61 @@ body {
         </div>
 
         <div class="page" id="music">
-            <button class="back-button" onclick="closePage()">home</button>
-            <!-- Add your music content here -->
-        </div>
+    <button class="back-button" onclick="closePage()">home</button>
+    <h2>Listen</h2>
+    
+    <div class="music-links">
+        <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jx2my-mfTZ-r8gPW2PmbAg " target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" class="platform-icon">
+            <span>Spotify</span>
+        </a>
+
+        <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="platform-icon">
+            <span>Apple Music</span>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UCnG41XAjVgMrcFCuXh_e52g" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" class="platform-icon">
+            <span>YouTube</span>
+        </a>
+
+        <a href="https://music.youtube.com/channel/UCFmQn3PTef-qjOXntqI4piw?si=K8f-_7SXLTVRI3Y_" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg" class="platform-icon">
+            <span>YouTube Music</span>
+        </a>
+
+        <a href="https://amazon.com/music/player/artists/B0BW9KNVFN/kat-sophia?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_510hk5RaX0dmTKsTWuyPXI67j" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Amazon_Music_logo.svg" class="platform-icon">
+            <span>Amazon Music</span>
+        </a>
+
+        <a href="https://tidal.com/artist/37503659" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Tidal_logo.svg" class="platform-icon">
+            <span>TIDAL</span>
+        </a>
+
+        <a href="https://www.deezer.com/en/artist/202472827" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Deezer_logo.svg" class="platform-icon">
+            <span>Deezer</span>
+        </a>
+
+        <a href="https://www.pandora.com/artist/kat-sophia/ARdqq9Zwhd2tb5w" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Pandora_logo_2016.svg" class="platform-icon">
+            <span>Pandora</span>
+        </a>
+
+        <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg" class="platform-icon">
+            <span>iTunes</span>
+        </a>
+
+        <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Bandcamp-button-bc-circle-aqua-32.png" class="platform-icon">
+            <span>Bandcamp</span>
+        </a>
+    </div>
+</div>
 
         <div class="page" id="gallery">
             <button class="back-button" onclick="closePage()">home</button>
