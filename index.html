@@ -890,12 +890,12 @@ body {
 
 .video-box {
     position: relative;
-    width: 85%; /* Shrunk slightly more to ensure it fits on phone screens */
+    width: 85%;
     max-width: 230px; 
-    padding-bottom: 48%; /* Slimmed down height to prevent scrolling */
+    padding-bottom: 48%;
     height: 0;
-    border: 1px solid #000;
-    background: #000; /* Keeps a clean border if loading */
+    border: none !important; /* Removes border from the container */
+    background: transparent; /* Ensures no black background shows through */
 }
 
 .video-box iframe {
@@ -904,6 +904,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    border: none !important; /* Removes the default YouTube border */
 }
 
 /* Ensure the page itself allows them to sit high */
