@@ -857,24 +857,38 @@ body {
     </div>
     
     <script>
-        function openPage(pageId) {
-    // Hide the book cover
-    document.getElementById('bookCover').style.display = 'none';
-    
-    // Clear any other open pages so they don't stack
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => page.classList.remove('active'));
-    
-    // Open the page you actually clicked
-    document.getElementById(pageId).classList.add('active');
-}
+    function openPage(pageId) {
+        // 1. Hide the cover
+        document.getElementById('bookCover').style.display = 'none';
+        
+        // 2. Hide any other pages that might be open
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => {
+            p.style.display = 'none';
+            p.classList.remove('active');
+        });
 
-        function closePage() {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById('bookCover').style.display = 'flex';
-        }
-    </script>
+        // 3. Get the new page
+        const page = document.getElementById(pageId);
+        
+        // 4. THE FIX: Show it as a block first...
+        page.style.display = 'block';
+        
+        // 5. ...then wait a tiny fraction of a second to trigger the 3D flip
+        setTimeout(() => {
+            page.classList.add('active');
+        }, 20);
+    }
+
+    function closePage() {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => {
+            page.classList.remove('active');
+            page.style.display = 'none';
+        });
+        document.getElementById('bookCover').style.display = 'flex';
+    }
+</script>
 
 
 <!-- Social Icons Top Left -->
