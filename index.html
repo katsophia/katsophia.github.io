@@ -779,6 +779,78 @@ body {
     letter-spacing: 0.5px;
     text-transform: none; 
 }
+.contact-content {
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.contact-content p {
+    line-height: 1.2 !important;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: normal !important;
+    color: #000000 !important;
+}
+
+/* Styling for links in both Shows and Contact sections */
+.shows-content a, .contact-content a {
+    color: #D0878B !important; /* Dusty Pink */
+    text-decoration: underline;
+    font-weight: normal !important; /* Ensures no bold */
+}
+
+/* Ensure body text stays black */
+.shows-content p, .contact-content p {
+    color: #000000 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+.shows-content {
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; /* Moves it down just a bit from the button */
+}
+
+.shows-content p {
+    line-height: 1.2 !important; /* Tight spacing */
+    margin-bottom: 10px; /* Small gap between paragraphs */
+    font-size: 16px;
+}
+
+.shows-content a {
+    color: #000000 !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.shows-content {
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; 
+}
+
+.shows-content p {
+    line-height: 1.2 !important; 
+    margin-bottom: 10px; 
+    font-size: 16px;
+    color: #000000 !important; /* Body text remains black */
+}
+
+/* Style for the italicized line */
+.no-dates {
+    font-style: italic;
+}
+
+/* Pink Links - No Bold */
+.shows-content a {
+    color: #D0878B !important;
+    text-decoration: underline;
+    font-weight: normal !important; /* Removes bold */
+}
 /* Compact Video Gallery - Perfectly Positioned */
 .video-container-small {
     display: flex;
@@ -914,19 +986,20 @@ body {
 <div class="page" id="shows">
     <button class="back-button" onclick="closePage()">home</button>
     <div class="shows-content">
-        <p>No upcoming dates</p>
-        <p class="sub-text">Get notified when shows are announced:</p>
-        
-        <div class="ml-embedded" data-form="https://preview.mailerlite.io/forms/1975081/173409734897960151/share"></div>
+        <p>No upcoming dates.</p>
+        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
     </div>
 </div>
 
 <div class="page" id="contact">
     <button class="back-button" onclick="closePage()">home</button>
-    <h2>newsletter</h2>
-    <p class="newsletter-intro">Sign up for updates, new music, and more.</p>
-
-    <div class="ml-form-embed" data-account="YOUR_ACCOUNT_ID" data-form="YOUR_FORM_ID"></div>
+    <div class="contact-content">
+        <p>Contact</p>
+        <p>For booking, press, or general inquiries:<br>
+        <a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
+        
+        <p>For music updates, join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
+    </div>
 </div>
 
         <div class="page" id="store">
