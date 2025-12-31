@@ -734,30 +734,44 @@ body {
 #music .music-link-item {
     display: flex;
     align-items: center;
-    gap: 12px;           
-    padding: 10px 15px;  
+    gap: 15px;           /* More space between icon and text */
+    padding: 15px 25px;  /* Top/Bottom and Left/Right padding */
     background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
     text-decoration: none;
-    color: #000000;      
-    font-weight: normal; 
-    transition: all 0.2s ease;
+    color: #000000;
     
-    /* These two lines make them all the same size */
-    width: 200px;        
+    /* SIZE CONTROLS */
+    width: 250px;        /* Increased from 190px or 200px */
+    font-size: 100px;     /* Makes the text bigger */
+    font-weight: 500;    /* Makes the text slightly thicker */
+    
+    transition: all 0.2s ease;
     box-sizing: border-box; 
+    margin-bottom: 1px;  /* Space between buttons */
 }
 
+/* Make the icons grow with the buttons */
+#music .platform-icon, 
+#music .music-link-item svg, 
+#music .music-link-item img {
+    width: 28px;         /* Increased from 20px */
+    height: 28px;
+    flex-shrink: 0;
+}
+
+/* This handles the hover effect */
 #music .music-link-item:hover {
-    background: rgba(255, 255, 255, 0.7);
-    transform: translateY(-2px); /* Subtle lift up on hover */
+    background: #D0878B;      /* Light Pink background */
+    color: #ffffff;           /* Change text to white for contrast */
+    border-color: #00000;    /* Deeper pink border */
 }
 
-#music .platform-icon {
-    width: 20px;         
-    height: 20px;
-    flex-shrink: 0;      /* Prevents icons from squishing */
+/* This makes the icon turn white too when hovering */
+#music .music-link-item:hover svg,
+#music .music-link-item:hover img {
+    filter: brightness(0) invert(1); 
 }
 
 #music span {
@@ -780,9 +794,9 @@ body {
             <div class="bookmark" onclick="openPage('music')">
                 <div class="bookmark-shape">music</div>
             </div>
-            <div class="bookmark" onclick="openPage('store')">
-                <div class="bookmark-shape">store</div>
-            </div>
+            <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')">
+    <div class="bookmark-shape">store</div>
+</div>
             <div class="bookmark" onclick="openPage('shows')">
                 <div class="bookmark-shape">shows</div>
             </div>
