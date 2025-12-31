@@ -793,7 +793,33 @@ body {
     font-weight: normal !important;
     color: #000000 !important;
 }
+/* Helvetica Override & Small Font Size */
+.shows-content, .contact-content, 
+.shows-content p, .contact-content p, 
+.shows-content a, .contact-content a {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+}
 
+.shows-content p, .contact-content p {
+    color: #000000 !important;
+    line-height: 1.3 !important;
+    font-weight: normal !important;
+    font-size: 11px !important; /* This makes the font a lot smaller */
+    margin-bottom: 8px; /* Slightly tighter gap for smaller text */
+}
+
+/* The Pink Links */
+.shows-content a, .contact-content a {
+    color: #D0878B !important;
+    text-decoration: underline;
+    font-weight: normal !important;
+    font-size: 11px !important;
+}
+
+/* Keep the italic line italicized */
+.no-dates {
+    font-style: italic !important;
+}
 /* Styling for links in both Shows and Contact sections */
 .shows-content a, .contact-content a {
     color: #D0878B !important; /* Dusty Pink */
