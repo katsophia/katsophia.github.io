@@ -779,6 +779,39 @@ body {
     letter-spacing: 0.5px;
     text-transform: none; 
 }
+/* Compact Video Gallery - Perfectly Positioned */
+.video-container-small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; 
+    padding: 0;
+    margin-top: 15px; /* Adjust this number (10px to 20px) to get the exact height you want */
+    width: 100%;
+}
+
+.video-box {
+    position: relative;
+    width: 85%; /* Shrunk slightly more to ensure it fits on phone screens */
+    max-width: 230px; 
+    padding-bottom: 48%; /* Slimmed down height to prevent scrolling */
+    height: 0;
+    border: 1px solid #000;
+    background: #000; /* Keeps a clean border if loading */
+}
+
+.video-box iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ensure the page itself allows them to sit high */
+#gallery {
+    padding-top: 45px !important; /* Space for the back button */
+}
     </style>
 </head>
 <body>
@@ -864,14 +897,37 @@ body {
 </div>
 
         <div class="page" id="gallery">
-            <button class="back-button" onclick="closePage()">home</button>
-            <!-- Add your gallery content here -->
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="spacer-top"></div> <div class="video-container-small">
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/6LoQmlyhiyc" frameborder="0" allowfullscreen></iframe>
         </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/t2Ax9kPExho" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/V0D9n7JjoSI" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
 
-        <div class="page" id="shows">
-            <button class="back-button" onclick="closePage()">home</button>
-            <!-- Add your shows content here -->
-        </div>
+<div class="page" id="shows">
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="shows-content">
+        <p>No upcoming dates</p>
+        <p class="sub-text">Get notified when shows are announced:</p>
+        
+        <div class="ml-embedded" data-form="https://preview.mailerlite.io/forms/1975081/173409734897960151/share"></div>
+    </div>
+</div>
+
+<div class="page" id="contact">
+    <button class="back-button" onclick="closePage()">home</button>
+    <h2>newsletter</h2>
+    <p class="newsletter-intro">Sign up for updates, new music, and more.</p>
+
+    <div class="ml-form-embed" data-account="YOUR_ACCOUNT_ID" data-form="YOUR_FORM_ID"></div>
+</div>
 
         <div class="page" id="store">
             <button class="back-button" onclick="closePage()">home</button>
