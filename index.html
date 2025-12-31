@@ -860,9 +860,16 @@ body {
     
     <script>
         function openPage(pageId) {
-            document.getElementById('bookCover').style.display = 'none';
-            document.getElementById(pageId).classList.add('active');
-        }
+    // Hide the book cover
+    document.getElementById('bookCover').style.display = 'none';
+    
+    // Clear any other open pages so they don't stack
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    // Open the page you actually clicked
+    document.getElementById(pageId).classList.add('active');
+}
 
         function closePage() {
             const pages = document.querySelectorAll('.page');
