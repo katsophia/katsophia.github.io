@@ -755,56 +755,72 @@ body {
             box-shadow: none;
             opacity: 0.85; /* adjust 0.1 to 1 as needed */
         }
-/* Specific styles for the Music Page only - Uniform Small Buttons */
+/* Specific styles for the Music Page - Wide Label Style */
+#music {
+    padding-top: 35px !important; /* Reduces the gap at the very top of the page */
+}
+
 #music .music-links {
     display: flex;
     flex-direction: column;
-    gap: 8px;            
-    margin-top: 15px;    
-    align-items: center; /* This centers the column of buttons on the page */
+    gap: 0px; 
+    margin-top: 27px;   /* Changed from 25px to 20px to move everything up */
+    align-items: center; 
 }
 
 #music .music-link-item {
     display: flex;
     align-items: center;
-    gap: 15px;           /* More space between icon and text */
-    padding: 15px 25px;  /* Top/Bottom and Left/Right padding */
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
+    gap: 18px;
+    padding: 12px 25px; /* Increased side padding */
+    background: transparent; 
+    border-top: 1px solid rgba(139, 115, 85, 0.3); 
     text-decoration: none;
     color: #000000;
     
     /* SIZE CONTROLS */
-    width: 250px;        /* Increased from 190px or 200px */
-    font-size: 100px;     /* Makes the text bigger */
-    font-weight: 500;    /* Makes the text slightly thicker */
-    
+    width: 280px;        /* Increased width from 240px */
     transition: all 0.2s ease;
     box-sizing: border-box; 
-    margin-bottom: 1px;  /* Space between buttons */
+    position: relative;
 }
 
-/* Make the icons grow with the buttons */
-#music .platform-icon, 
-#music .music-link-item svg, 
-#music .music-link-item img {
-    width: 28px;         /* Increased from 20px */
-    height: 28px;
-    flex-shrink: 0;
+#music .music-link-item span {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 13px;      /* Smaller, cleaner font size */
+    letter-spacing: 1px;  /* Slight spacing for readability */
+    font-weight: normal;
+    text-transform: lowercase; /* Forces all names to lowercase */
+    color: #000000;
 }
 
-/* This handles the hover effect */
+#music .platform-icon {
+    width: 18px;          /* Slightly smaller icon to match small text */
+    height: 18px;
+    opacity: 0.8;
+    filter: grayscale(1); /* Optional: makes icons look more like black ink */
+    transition: all 0.2s ease;
+}
+
+/* Full Hover Highlight */
 #music .music-link-item:hover {
-    background: #D0878B;      /* Light Pink background */
-    color: #ffffff;           /* Change text to white for contrast */
-    border-color: #00000;    /* Deeper pink border */
+    background: rgba(208, 135, 139, 0.25); /* Slightly deeper pink for the wider area */
+    border-top-color: #D0878B;
 }
 
-/* This makes the icon turn white too when hovering */
-#music .music-link-item:hover svg,
-#music .music-link-item:hover img {
-    filter: brightness(0) invert(1); 
+#music .music-link-item:hover .platform-icon {
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+/* Keeps the "box" look by adding a line at the very bottom of the list */
+#music .music-link-item:last-child {
+    border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+}
+
+/* Remove the bullets */
+#music .music-link-item::before {
+    display: none;
 }
 
 #music span {
@@ -1217,6 +1233,7 @@ body {
     cursor: pointer;
     opacity: 0.9;
 }
+
 </style>
 
 <!-- MailerLite Popup -->
