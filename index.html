@@ -94,9 +94,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* or "contain" if you don't want cropping */
+    object-fit: cover;
     border-radius: 2px;
-    z-index: 1; /* sits above book texture, below everything else */
+    z-index: -1; /* This lets you draw on top of it */
+    pointer-events: none; /* This ensures your mouse "hits" the drawing canvas, not the image */
 }* {
             margin: 0;
             padding: 0;
