@@ -2169,11 +2169,30 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     }
 
     function start(e) {
-        if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
-        drawing = true;
-        const pos = getPos(e);
-        [lastX, lastY] = [pos.x, pos.y];
+    // 1. Always block drawing if clicking UI buttons, bookmarks, or back buttons
+    if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
+
+    // 2. Apply Mobile-Only Restrictions (Phone/Tablet size)
+    if (window.innerWidth <= 768) {
+        const musicPage = document.getElementById('music');
+        const galleryPage = document.getElementById('gallery');
+        
+        // Block if Music or Gallery pages are open
+        if (musicPage.classList.contains('active') || galleryPage.classList.contains('active')) {
+            return;
+        }
+
+        // Block if touching the background (only allow touches inside .book or .page)
+        if (!e.target.closest('.book') && !e.target.closest('.page')) {
+            return;
+        }
     }
+
+    // If it passes the checks above, start drawing
+    drawing = true;
+    const pos = getPos(e);
+    [lastX, lastY] = [pos.x, pos.y];
+}
 
     function move(e) {
         if (!drawing) return;
