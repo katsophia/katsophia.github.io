@@ -1,984 +1,983 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Kat Sophia</title> 
-    <link rel="preload" as="image" href="KS_BG4.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Kat Sophia</title> 
+    <link rel="preload" as="image" href="KS_BG4.jpg">
 
-    <meta property="og:site_name" content="Kat Sophia">
-    <meta name="application-name" content="Kat Sophia">
-    <meta name="apple-mobile-web-app-title" content="Kat Sophia">
+    <meta property="og:site_name" content="Kat Sophia">
+    <meta name="application-name" content="Kat Sophia">
+    <meta name="apple-mobile-web-app-title" content="Kat Sophia">
 
-    <meta name="description" content="Official website of Kat Sophia. Open the book to discover new music, upcoming shows, and handmade merch. Sign up now.">
+    <meta name="description" content="Official website of Kat Sophia. Open the book to discover new music, upcoming shows, and handmade merch. Sign up now.">
 
-    <link rel="icon" type="image/png" href="KS_logo.png?v=2">
+    <link rel="icon" type="image/png" href="KS_logo.png?v=2">
 <link rel="apple-touch-icon" href="KS_logo.png?v=2">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MusicArtist",
-      "name": "Kat Sophia",
-      "url": "https://www.katsophia.com",
-      "description": "Official website of Kat Sophia. Open the book to discover new music, upcoming shows, and exclusive handmade merch.",
-      "hasPart": [
-        {
-          "@type": "WebPage",
-          "name": "Music",
-          "url": "https://www.katsophia.com/#music"
-        },
-        {
-          "@type": "WebPage",
-          "name": "Store",
-          "url": "https://katsophia.bandcamp.com"
-        },
-        {
-          "@type": "WebPage",
-          "name": "Shows",
-          "url": "https://www.katsophia.com/#shows"
-        }
-      ]
-    }
-    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicArtist",
+      "name": "Kat Sophia",
+      "url": "https://www.katsophia.com",
+      "description": "Official website of Kat Sophia. Open the book to discover new music, upcoming shows, and exclusive handmade merch.",
+      "hasPart": [
+        {
+          "@type": "WebPage",
+          "name": "Music",
+          "url": "https://www.katsophia.com/#music"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Store",
+          "url": "https://katsophia.bandcamp.com"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Shows",
+          "url": "https://www.katsophia.com/#shows"
+        }
+      ]
+    }
+    </script>
 
-    <style>
-    
-    .popup {
-  position: fixed;
-  top: 18px;
-  right: 25px;
-  background: #fff;
-  border: 0px solid #000;
-  padding: 0px;
-  box-shadow: 0 0px 0px rgba(0,0,0,0.2);
-  display: none; /* hidden initially */
-  z-index: 1000;
-  width: 300px; /* adjust if needed */
-  border-radius: 0px; /* optional */
-  font-family: sans-serif;
+    <style>
+    
+    .popup {
+  position: fixed;
+  top: 18px;
+  right: 25px;
+  background: #fff;
+  border: 0px solid #000;
+  padding: 0px;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.2);
+  display: none; /* hidden initially */
+  z-index: 1000;
+  width: 300px; /* adjust if needed */
+  border-radius: 0px; /* optional */
+  font-family: sans-serif;
 }
 
 .popup p {
-  margin: 0 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .popup input[type="email"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .popup button {
-  padding: 8px 12px;
-  background-color: black;
-  color: white;
-  border: none;
-  cursor: pointer;
+  padding: 8px 12px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .close {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-        .cover-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 2px;
-    z-index: -1; /* This lets you draw on top of it */
-    pointer-events: none; /* This ensures your mouse "hits" the drawing canvas, not the image */
+        .cover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or "contain" if you don't want cropping */
+    border-radius: 2px;
+    z-index: 1; /* sits above book texture, below everything else */
 }* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 body {
-    font-family: Garamond, 'Times New Roman', serif;
-    background-image: url('KS_BG4.jpg'); /* put your image file here */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    padding: 20px;
+    font-family: Garamond, 'Times New Roman', serif;
+    background-image: url('KS_BG4.jpg'); /* put your image file here */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
 }
 
-        .social-icons {
-            position: fixed;
-            top: 18px;
-            left: 18px;
-            display: flex;
-            gap: 18px;
-            z-index: 100;
-            flex-wrap: no-wrap;
-            max-width: none;
-        }
+        .social-icons {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            display: flex;
+            gap: 18px;
+            z-index: 100;
+            flex-wrap: no-wrap;
+            max-width: none;
+        }
 
 .social-icons a {
-    background: transparent; /* remove white background */
-    border-radius: 0;         /* remove circle shape */
-    box-shadow: none;         /* optional, remove shadow if needed */
-        }
+    background: transparent; /* remove white background */
+    border-radius: 0;         /* remove circle shape */
+    box-shadow: none;         /* optional, remove shadow if needed */
+        }
 
-        .social-icons a:hover {
-            transform: translateY(-3px) scale(1.08);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
+        .social-icons a:hover {
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
 
 .social-icons svg {
-    width: 29.5px;
-    height: 29.5px;
-    fill: #000000 !important; /* forces black on all icons */
+    width: 29.5px;
+    height: 29.5px;
+    fill: #000000 !important; /* forces black on all icons */
 }
 
 
-        }
+        }
 
-        .social-icons a:hover svg {
-            fill: #ff6b7a;
-        }
+        .social-icons a:hover svg {
+            fill: #ff6b7a;
+        }
 
-        @media (max-width: 768px) {
-            .social-icons {
-                top: 15px;
-                left: 15px;
-                gap: 12px;
-                max-width: 200px;
-            }
+        @media (max-width: 768px) {
+            .social-icons {
+                top: 15px;
+                left: 15px;
+                gap: 12px;
+                max-width: 200px;
+            }
 
-            .social-icons a {
-                width: 36px;
-                height: 36px;
-            }
+            .social-icons a {
+                width: 36px;
+                height: 36px;
+            }
 
-            .social-icons svg {
-                width: 18px;
-                height: 18px;
-            }
-        }
+            .social-icons svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
 .cover-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* or "contain" if you don't want cropping */
-    border-radius: 2px;
-    z-index: 1; /* sits above book texture, below everything else */
-    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or "contain" if you don't want cropping */
+    border-radius: 2px;
+    z-index: 1; /* sits above book texture, below everything else */
+    
 }
-        body {
-    font-family: Garamond, 'Times New Roman', serif;
-    background-image: url('KS_BG4.jpg'); /* put your image file here */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    padding: 20px;
+        body {
+    font-family: Garamond, 'Times New Roman', serif;
+    background-image: url('KS_BG4.jpg'); /* put your image file here */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
 }
 
-        .book-container {
-            position: relative;
-            width: 350px;
-            height: 458px;
-        }
+        .book-container {
+            position: relative;
+            width: 350px;
+            height: 458px;
+        }
 
-        @media (max-width: 768px) {
-            .book-container {
-                width: 300px;
-                height: 392px;
-                margin-right: 0;
-            }
+        @media (max-width: 768px) {
+            .book-container {
+                width: 300px;
+                height: 392px;
+                margin-right: 0;
+            }
 
-            .bookmarks {
-                right: -85px;
-                gap: 17px;
-            }
+            .bookmarks {
+                right: -85px;
+                gap: 17px;
+            }
 
-            .page {
-                padding: 32px 24px;
-            }
+            .page {
+                padding: 32px 24px;
+            }
 
-            .page h2 {
-                font-size: 20px;
-            }
+            .page h2 {
+                font-size: 20px;
+            }
 
-            .page p {
-                font-size: 12px;
-            }
+            .page p {
+                font-size: 12px;
+            }
 
-            .back-button {
-                padding: 4px 10px;
-                font-size: 6px;
-                letter-spacing: 0.4px;
-            }
-        }
+            .back-button {
+                padding: 4px 10px;
+                font-size: 6px;
+                letter-spacing: 0.4px;
+            }
+        }
 
-        .book {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 18% 22%, rgba(139,115,85,0.18) 0%, transparent 30%),
-                radial-gradient(ellipse at 82% 78%, rgba(125,102,78,0.15) 0%, transparent 33%),
-                radial-gradient(ellipse at 50% 50%, rgba(110,90,70,0.12) 0%, transparent 40%),
-                radial-gradient(circle at 28% 68%, rgba(98,80,62,0.1) 0%, transparent 20%),
-                radial-gradient(circle at 72% 32%, rgba(107,88,69,0.1) 0%, transparent 23%),
-                #8b7355;
-            border-radius: 2px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: visible;
-            box-shadow: 
-                inset 0 0 0 1px rgba(0,0,0,0.18),
-                3px 3px 12px rgba(0,0,0,0.2),
-                5px 5px 20px rgba(0,0,0,0.12);
-        }
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 18% 22%, rgba(139,115,85,0.18) 0%, transparent 30%),
+                radial-gradient(ellipse at 82% 78%, rgba(125,102,78,0.15) 0%, transparent 33%),
+                radial-gradient(ellipse at 50% 50%, rgba(110,90,70,0.12) 0%, transparent 40%),
+                radial-gradient(circle at 28% 68%, rgba(98,80,62,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 72% 32%, rgba(107,88,69,0.1) 0%, transparent 23%),
+                #8b7355;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: visible;
+            box-shadow: 
+                inset 0 0 0 1px rgba(0,0,0,0.18),
+                3px 3px 12px rgba(0,0,0,0.2),
+                5px 5px 20px rgba(0,0,0,0.12);
+        }
 
-        .book::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg,
-                    transparent,
-                    transparent 0.5px,
-                    rgba(0,0,0,0.025) 0.5px,
-                    rgba(0,0,0,0.025) 0.8px),
-                repeating-linear-gradient(90deg,
-                    transparent,
-                    transparent 0.5px,
-                    rgba(0,0,0,0.025) 0.5px,
-                    rgba(0,0,0,0.025) 0.8px),
-                repeating-linear-gradient(43deg,
-                    transparent,
-                    transparent 1.8px,
-                    rgba(0,0,0,0.015) 1.8px,
-                    rgba(0,0,0,0.015) 2.5px),
-                repeating-linear-gradient(-47deg,
-                    transparent,
-                    transparent 1.8px,
-                    rgba(0,0,0,0.015) 1.8px,
-                    rgba(0,0,0,0.015) 2.5px),
-                repeating-linear-gradient(88deg,
-                    transparent,
-                    transparent 3.5px,
-                    rgba(0,0,0,0.012) 3.5px,
-                    rgba(0,0,0,0.012) 4.5px),
-                radial-gradient(ellipse at 20% 26%, rgba(0,0,0,0.028) 0%, transparent 26%),
-                radial-gradient(ellipse at 80% 74%, rgba(0,0,0,0.024) 0%, transparent 28%),
-                radial-gradient(circle at 33% 67%, rgba(0,0,0,0.02) 0%, transparent 16%),
-                radial-gradient(circle at 67% 33%, rgba(0,0,0,0.02) 0%, transparent 18%),
-                radial-gradient(circle at 12% 88%, rgba(0,0,0,0.015) 0%, transparent 14%),
-                radial-gradient(circle at 88% 12%, rgba(0,0,0,0.015) 0%, transparent 16%);
-            border-radius: 2px;
-            pointer-events: none;
-        }
+        .book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 0.5px,
+                    rgba(0,0,0,0.025) 0.5px,
+                    rgba(0,0,0,0.025) 0.8px),
+                repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 0.5px,
+                    rgba(0,0,0,0.025) 0.5px,
+                    rgba(0,0,0,0.025) 0.8px),
+                repeating-linear-gradient(43deg,
+                    transparent,
+                    transparent 1.8px,
+                    rgba(0,0,0,0.015) 1.8px,
+                    rgba(0,0,0,0.015) 2.5px),
+                repeating-linear-gradient(-47deg,
+                    transparent,
+                    transparent 1.8px,
+                    rgba(0,0,0,0.015) 1.8px,
+                    rgba(0,0,0,0.015) 2.5px),
+                repeating-linear-gradient(88deg,
+                    transparent,
+                    transparent 3.5px,
+                    rgba(0,0,0,0.012) 3.5px,
+                    rgba(0,0,0,0.012) 4.5px),
+                radial-gradient(ellipse at 20% 26%, rgba(0,0,0,0.028) 0%, transparent 26%),
+                radial-gradient(ellipse at 80% 74%, rgba(0,0,0,0.024) 0%, transparent 28%),
+                radial-gradient(circle at 33% 67%, rgba(0,0,0,0.02) 0%, transparent 16%),
+                radial-gradient(circle at 67% 33%, rgba(0,0,0,0.02) 0%, transparent 18%),
+                radial-gradient(circle at 12% 88%, rgba(0,0,0,0.015) 0%, transparent 14%),
+                radial-gradient(circle at 88% 12%, rgba(0,0,0,0.015) 0%, transparent 16%);
+            border-radius: 2px;
+            pointer-events: none;
+        }
 
 
 
-        .book::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg, 
-                    transparent, 
-                    transparent 2px, 
-                    rgba(0,0,0,0.03) 2px, 
-                    rgba(0,0,0,0.03) 3px),
-                repeating-linear-gradient(90deg, 
-                    transparent, 
-                    transparent 2px, 
-                    rgba(0,0,0,0.03) 2px, 
-                    rgba(0,0,0,0.03) 3px);
-            border-radius: 3px;
-            pointer-events: none;
-           
-        }
+        .book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, 
+                    transparent, 
+                    transparent 2px, 
+                    rgba(0,0,0,0.03) 2px, 
+                    rgba(0,0,0,0.03) 3px),
+                repeating-linear-gradient(90deg, 
+                    transparent, 
+                    transparent 2px, 
+                    rgba(0,0,0,0.03) 2px, 
+                    rgba(0,0,0,0.03) 3px);
+            border-radius: 3px;
+            pointer-events: none;
+           
+        }
 
-        .heart-container {
-            position: relative;
-            width: 300px;
-            height: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2));
-        }
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2));
+        }
 
-        .heart-border {
-            position: absolute;
-            width: 270px;
-            height: 245px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        .heart-border {
+            position: absolute;
+            width: 270px;
+            height: 245px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-        .heart-border::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 190px;
-            height: 190px;
-            background: #f5e6d3;
-            transform: translateX(-50%) rotate(45deg);
-            transform-origin: center center;
-        }
+        .heart-border::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 190px;
+            height: 190px;
+            background: #f5e6d3;
+            transform: translateX(-50%) rotate(45deg);
+            transform-origin: center center;
+        }
 
-        .heart-border::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 270px;
-            height: 135px;
-            background: 
-                radial-gradient(circle at 33% 50%, #f5e6d3 95px, transparent 96px),
-                radial-gradient(circle at 67% 50%, #f5e6d3 95px, transparent 96px);
-        }
+        .heart-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 270px;
+            height: 135px;
+            background: 
+                radial-gradient(circle at 33% 50%, #f5e6d3 95px, transparent 96px),
+                radial-gradient(circle at 67% 50%, #f5e6d3 95px, transparent 96px);
+        }
 
-        .heart {
-            position: absolute;
-            width: 250px;
-            height: 225px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+        .heart {
+            position: absolute;
+            width: 250px;
+            height: 225px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-        .heart::before {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            width: 177px;
-            height: 177px;
-            background: 
-                radial-gradient(ellipse at 45% 45%, rgba(255,255,255,0.08) 0%, transparent 60%),
-                linear-gradient(135deg, #ffd4e5 0%, #ffc9de 50%, #ffbed7 100%);
-            transform: translateX(-50%) rotate(45deg);
-            transform-origin: center center;
-        }
+        .heart::before {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 177px;
+            height: 177px;
+            background: 
+                radial-gradient(ellipse at 45% 45%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                linear-gradient(135deg, #ffd4e5 0%, #ffc9de 50%, #ffbed7 100%);
+            transform: translateX(-50%) rotate(45deg);
+            transform-origin: center center;
+        }
 
-        .heart::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            height: 125px;
-            background: 
-                radial-gradient(circle at 33% 50%, 
-                    rgba(255,255,255,0.1) 0%,
-                    #ffd4e5 30%, 
-                    #ffc9de 60%,
-                    #ffbed7 88px, 
-                    transparent 89px),
-                radial-gradient(circle at 67% 50%, 
-                    rgba(255,255,255,0.1) 0%,
-                    #ffd4e5 30%, 
-                    #ffc9de 60%,
-                    #ffbed7 88px, 
-                    transparent 89px);
-        }
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 125px;
+            background: 
+                radial-gradient(circle at 33% 50%, 
+                    rgba(255,255,255,0.1) 0%,
+                    #ffd4e5 30%, 
+                    #ffc9de 60%,
+                    #ffbed7 88px, 
+                    transparent 89px),
+                radial-gradient(circle at 67% 50%, 
+                    rgba(255,255,255,0.1) 0%,
+                    #ffd4e5 30%, 
+                    #ffc9de 60%,
+                    #ffbed7 88px, 
+                    transparent 89px);
+        }
 
-        .heart-texture {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(2deg,
-                    transparent,
-                    transparent 1.5px,
-                    rgba(0,0,0,0.01) 1.5px,
-                    rgba(0,0,0,0.01) 2px),
-                repeating-linear-gradient(88deg,
-                    transparent,
-                    transparent 1.5px,
-                    rgba(0,0,0,0.01) 1.5px,
-                    rgba(0,0,0,0.01) 2px);
-            pointer-events: none;
-            z-index: 1;
-        }
+        .heart-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(2deg,
+                    transparent,
+                    transparent 1.5px,
+                    rgba(0,0,0,0.01) 1.5px,
+                    rgba(0,0,0,0.01) 2px),
+                repeating-linear-gradient(88deg,
+                    transparent,
+                    transparent 1.5px,
+                    rgba(0,0,0,0.01) 1.5px,
+                    rgba(0,0,0,0.01) 2px);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-        .heart-container {
-            position: relative;
-            width: 360px;
-            height: 340px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .heart-container {
+            position: relative;
+            width: 360px;
+            height: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-        .heart-border {
-            position: relative;
-            width: 300px;
-            height: 270px;
-            background: transparent;
-        }
+        .heart-border {
+            position: relative;
+            width: 300px;
+            height: 270px;
+            background: transparent;
+        }
 
-        .heart-border::before {
-            content: '';
-            position: absolute;
-            top: 45px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 210px;
-            height: 210px;
-            background: #f5e6d3;
-            transform: translateX(-50%) rotate(45deg);
-        }
+        .heart-border::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 210px;
+            height: 210px;
+            background: #f5e6d3;
+            transform: translateX(-50%) rotate(45deg);
+        }
 
-        .heart-border::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 150px;
-            background: 
-                radial-gradient(circle at 25% 50%, #f5e6d3 70px, transparent 71px),
-                radial-gradient(circle at 75% 50%, #f5e6d3 70px, transparent 71px);
-        }
+        .heart-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: 
+                radial-gradient(circle at 25% 50%, #f5e6d3 70px, transparent 71px),
+                radial-gradient(circle at 75% 50%, #f5e6d3 70px, transparent 71px);
+        }
 
-        .heart {
-            position: relative;
-            width: 280px;
-            height: 250px;
-            background: transparent;
-        }
+        .heart {
+            position: relative;
+            width: 280px;
+            height: 250px;
+            background: transparent;
+        }
 
-        .heart::before {
-            content: '';
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 180px;
-            background: 
-                linear-gradient(135deg, 
-                    #ff7580 0%, 
-                    #ff6b7a 40%, 
-                    #ff6570 60%,
-                    #ff6b7a 100%);
-            transform: translateX(-50%) rotate(45deg);
-        }
+        .heart::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 180px;
+            background: 
+                linear-gradient(135deg, 
+                    #ff7580 0%, 
+                    #ff6b7a 40%, 
+                    #ff6570 60%,
+                    #ff6b7a 100%);
+            transform: translateX(-50%) rotate(45deg);
+        }
 
-        .heart::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 0;
-            right: 0;
-            height: 140px;
-            background: 
-                radial-gradient(circle at 25% 50%, 
-                    #ff7580 0%, 
-                    #ff6b7a 50%, 
-                    #ff6570 60px, 
-                    transparent 61px),
-                radial-gradient(circle at 75% 50%, 
-                    #ff7580 0%, 
-                    #ff6b7a 50%, 
-                    #ff6570 60px, 
-                    transparent 61px);
-        }
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: 
+                radial-gradient(circle at 25% 50%, 
+                    #ff7580 0%, 
+                    #ff6b7a 50%, 
+                    #ff6570 60px, 
+                    transparent 61px),
+                radial-gradient(circle at 75% 50%, 
+                    #ff7580 0%, 
+                    #ff6b7a 50%, 
+                    #ff6570 60px, 
+                    transparent 61px);
+        }
 
-        .heart-texture {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(47deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0,0,0,0.04) 2px,
-                    rgba(0,0,0,0.04) 4px),
-                repeating-linear-gradient(-43deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0,0,0,0.03) 2px,
-                    rgba(0,0,0,0.03) 4px),
-                radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
-                radial-gradient(ellipse at 60% 70%, rgba(0,0,0,0.05) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 10;
-        }
+        .heart-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(47deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.04) 2px,
+                    rgba(0,0,0,0.04) 4px),
+                repeating-linear-gradient(-43deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px),
+                radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 60% 70%, rgba(0,0,0,0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 10;
+        }
 
-        .bookmarks {
-            position: absolute;
-            right: -100px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            z-index: 10;
-        }
+        .bookmarks {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
 
-        .bookmark {
-            width: 100px;
-            height: 42px;
-            position: relative;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
-            transition: transform 0.3s;
-            transform-origin: left center;
-            filter: brightness(1);
-        }
+        .bookmark {
+            width: 100px;
+            height: 42px;
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+            transition: transform 0.3s;
+            transform-origin: left center;
+            filter: brightness(1);
+        }
 /* Pencil cursor on book cover and pages */
 .book,
 .page {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
 }
 
-        .bookmark:hover {
-            transform: translateX(15px);
-            filter: brightness(1.05);
-        }
+        .bookmark:hover {
+            transform: translateX(15px);
+            filter: brightness(1.05);
+        }
 
-        .bookmark-shape {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14.2px;
-            font-weight: normal;
-            font-family: Garamond, 'Times New Roman', serif;
-            letter-spacing: 0.8px;
-            color: #1a1a1a;
-            border-radius: 2px 0 0 2px;
-            clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
-            border: 1px solid rgba(0,0,0,0.1);
-            
-        }
+        .bookmark-shape {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14.2px;
+            font-weight: normal;
+            font-family: Garamond, 'Times New Roman', serif;
+            letter-spacing: 0.8px;
+            color: #1a1a1a;
+            border-radius: 2px 0 0 2px;
+            clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
+            border: 1px solid rgba(0,0,0,0.1);
+            
+        }
 
-        .bookmark:nth-child(1) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #ffd4e5 0px,
-                    #ffd4e5 8px,
-                    white 8px,
-                    white 16px);
-        }
-        .bookmark:nth-child(2) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #ff6b7a 0px,
-                    #ff6b7a 8px,
-                    white 8px,
-                    white 16px);
-        }
-        .bookmark:nth-child(3) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #ffd89b 0px,
-                    #ffd89b 8px,
-                    white 8px,
-                    white 16px);
-        }
-        .bookmark:nth-child(4) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #9fd477 0px,
-                    #9fd477 8px,
-                    white 8px,
-                    white 16px);
-        }
-        .bookmark:nth-child(5) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #8dc4dd 0px,
-                    #8dc4dd 8px,
-                    white 8px,
-                    white 16px);
-        }
-        .bookmark:nth-child(6) .bookmark-shape { 
-            background: 
-                repeating-linear-gradient(45deg,
-                    #bf8aad 0px,
-                    #bf8aad 8px,
-                    white 8px,
-                    white 16px);
-        }
+        .bookmark:nth-child(1) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ffd4e5 0px,
+                    #ffd4e5 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(2) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ff6b7a 0px,
+                    #ff6b7a 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(3) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #ffd89b 0px,
+                    #ffd89b 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(4) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #9fd477 0px,
+                    #9fd477 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(5) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #8dc4dd 0px,
+                    #8dc4dd 8px,
+                    white 8px,
+                    white 16px);
+        }
+        .bookmark:nth-child(6) .bookmark-shape { 
+            background: 
+                repeating-linear-gradient(45deg,
+                    #bf8aad 0px,
+                    #bf8aad 8px,
+                    white 8px,
+                    white 16px);
+        }
 
-        .page {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 12% 18%, rgba(139,115,85,0.06) 0%, transparent 40%),
-                radial-gradient(ellipse at 88% 82%, rgba(139,115,85,0.05) 0%, transparent 42%),
-                linear-gradient(to bottom, 
-                    #faf0e2 0%, 
-                    #f8ede0 20%, 
-                    #f5e6d3 50%, 
-                    #f2dfc6 80%, 
-                    #f0d9be 100%);
-            border-radius: 0 2px 2px 0;
-            padding: 60px 50px;
-            overflow-y: auto;
-            animation: pageFlip 0.8s ease;
-            transform-origin: left center;
-            box-shadow: 
-                -2px 0 8px rgba(0,0,0,0.12),
-                inset 6px 0 12px rgba(139,115,85,0.08);
-        }
+        .page {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 12% 18%, rgba(139,115,85,0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 88% 82%, rgba(139,115,85,0.05) 0%, transparent 42%),
+                linear-gradient(to bottom, 
+                    #faf0e2 0%, 
+                    #f8ede0 20%, 
+                    #f5e6d3 50%, 
+                    #f2dfc6 80%, 
+                    #f0d9be 100%);
+            border-radius: 0 2px 2px 0;
+            padding: 60px 50px;
+            overflow-y: auto;
+            animation: pageFlip 0.8s ease;
+            transform-origin: left center;
+            box-shadow: 
+                -2px 0 8px rgba(0,0,0,0.12),
+                inset 6px 0 12px rgba(139,115,85,0.08);
+        }
 
-        .page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg,
-                    transparent,
-                    transparent 22px,
-                    rgba(139,115,85,0.04) 22px,
-                    rgba(139,115,85,0.04) 22.5px),
-                radial-gradient(ellipse at 30% 40%, rgba(139,115,85,0.03) 0%, transparent 25%),
-                radial-gradient(ellipse at 70% 60%, rgba(139,115,85,0.025) 0%, transparent 27%);
-            pointer-events: none;
-            border-radius: 0 2px 2px 0;
-        }
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 22px,
+                    rgba(139,115,85,0.04) 22px,
+                    rgba(139,115,85,0.04) 22.5px),
+                radial-gradient(ellipse at 30% 40%, rgba(139,115,85,0.03) 0%, transparent 25%),
+                radial-gradient(ellipse at 70% 60%, rgba(139,115,85,0.025) 0%, transparent 27%);
+            pointer-events: none;
+            border-radius: 0 2px 2px 0;
+        }
 
-        .page::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 40px;
-            height: 100%;
-            background: linear-gradient(to right, 
-                rgba(139,115,85,0.12) 0%, 
-                rgba(139,115,85,0.06) 40%,
-                transparent 100%);
-            pointer-events: none;
-        }
+        .page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, 
+                rgba(139,115,85,0.12) 0%, 
+                rgba(139,115,85,0.06) 40%,
+                transparent 100%);
+            pointer-events: none;
+        }
 
-        .page.active {
-            display: block;
-        }
+        .page.active {
+            display: block;
+        }
 
-        @keyframes pageFlip {
-            0% {
-                transform: perspective(1200px) rotateY(-90deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: perspective(1200px) rotateY(0deg);
-                opacity: 1;
-            }
-        }
+        @keyframes pageFlip {
+            0% {
+                transform: perspective(1200px) rotateY(-90deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(1200px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
 
-        .page h2 {
-            font-size: 32px;
-            color: #6b5845;
-            margin-bottom: 25px;
-            font-family: Garamond, 'Times New Roman', serif;
-            font-weight: normal;
-            letter-spacing: 0.5px;
-        }
+        .page h2 {
+            font-size: 32px;
+            color: #6b5845;
+            margin-bottom: 25px;
+            font-family: Garamond, 'Times New Roman', serif;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
 
-        .page p {
-            font-size: 17px;
-            line-height: 2;
-            color: #5a4a3a;
-            margin-bottom: 18px;
-            font-family: Garamond, 'Times New Roman', serif;
-        }
+        .page p {
+            font-size: 17px;
+            line-height: 2;
+            color: #5a4a3a;
+            margin-bottom: 18px;
+            font-family: Garamond, 'Times New Roman', serif;
+        }
 
-        .back-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: white;
-            color: #1a1a1a;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
-            font-weight: normal;
-            font-size: 12px;
-            font-family: Garamond, 'Times New Roman', serif;
-            letter-spacing: 0.8px;
-            transition: all 0.3s;
-        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #1a1a1a;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer;
+            font-weight: normal;
+            font-size: 12px;
+            font-family: Garamond, 'Times New Roman', serif;
+            letter-spacing: 0.8px;
+            transition: all 0.3s;
+        }
 
-        .back-button:hover {
-            transform: scale(1.05);
-            background: #f5f5f5;
-        }
-                /* add your new style here */
-        .social-icons a {
-            background: transparent;
-            border-radius: 0;
-            box-shadow: none;
-            opacity: 0.85; /* adjust 0.1 to 1 as needed */
-        }
+        .back-button:hover {
+            transform: scale(1.05);
+            background: #f5f5f5;
+        }
+                /* add your new style here */
+        .social-icons a {
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            opacity: 0.85; /* adjust 0.1 to 1 as needed */
+        }
 /* Specific styles for the Music Page - Wide Label Style */
 #music {
-    padding-top: 35px !important; /* Reduces the gap at the very top of the page */
+    padding-top: 35px !important; /* Reduces the gap at the very top of the page */
 }
 
 #music .music-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0px; 
-    margin-top: 27px;   /* Changed from 25px to 20px to move everything up */
-    align-items: center; 
+    display: flex;
+    flex-direction: column;
+    gap: 0px; 
+    margin-top: 27px;   /* Changed from 25px to 20px to move everything up */
+    align-items: center; 
 }
 
 #music .music-link-item {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 12px 25px; /* Increased side padding */
-    background: transparent; 
-    border-top: 1px solid rgba(139, 115, 85, 0.3); 
-    text-decoration: none;
-    color: #000000;
-    
-    /* SIZE CONTROLS */
-    width: 280px;        /* Increased width from 240px */
-    transition: all 0.2s ease;
-    box-sizing: border-box; 
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 25px; /* Increased side padding */
+    background: transparent; 
+    border-top: 1px solid rgba(139, 115, 85, 0.3); 
+    text-decoration: none;
+    color: #000000;
+    
+    /* SIZE CONTROLS */
+    width: 280px;        /* Increased width from 240px */
+    transition: all 0.2s ease;
+    box-sizing: border-box; 
+    position: relative;
 }
 
 #music .music-link-item span {
-    font-family: 'Helvetica', 'Arial', sans-serif !important;
-    font-size: 13px;      /* Smaller, cleaner font size */
-    letter-spacing: 1px;  /* Slight spacing for readability */
-    font-weight: normal;
-    text-transform: lowercase; /* Forces all names to lowercase */
-    color: #000000;
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 13px;      /* Smaller, cleaner font size */
+    letter-spacing: 1px;  /* Slight spacing for readability */
+    font-weight: normal;
+    text-transform: lowercase; /* Forces all names to lowercase */
+    color: #000000;
 }
 
 #music .platform-icon {
-    width: 18px;          /* Slightly smaller icon to match small text */
-    height: 18px;
-    opacity: 0.8;
-    filter: grayscale(1); /* Optional: makes icons look more like black ink */
-    transition: all 0.2s ease;
+    width: 18px;          /* Slightly smaller icon to match small text */
+    height: 18px;
+    opacity: 0.8;
+    filter: grayscale(1); /* Optional: makes icons look more like black ink */
+    transition: all 0.2s ease;
 }
 
 /* Full Hover Highlight */
 #music .music-link-item:hover {
-    background: rgba(208, 135, 139, 0.25); /* Slightly deeper pink for the wider area */
-    border-top-color: #D0878B;
+    background: rgba(208, 135, 139, 0.25); /* Slightly deeper pink for the wider area */
+    border-top-color: #D0878B;
 }
 
 #music .music-link-item:hover .platform-icon {
-    opacity: 1;
-    filter: grayscale(0);
+    opacity: 1;
+    filter: grayscale(0);
 }
 
 /* Keeps the "box" look by adding a line at the very bottom of the list */
 #music .music-link-item:last-child {
-    border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+    border-bottom: 1px solid rgba(139, 115, 85, 0.3);
 }
 
 /* Remove the bullets */
 #music .music-link-item::before {
-    display: none;
+    display: none;
 }
 
 #music span {
-    font-size: 15px;     
-    letter-spacing: 0.5px;
-    text-transform: none; 
+    font-size: 15px;     
+    letter-spacing: 0.5px;
+    text-transform: none; 
 }
 .contact-content {
-    color: #000000 !important;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
 }
 
 .contact-content p {
-    line-height: 1.2 !important;
-    margin-bottom: 12px;
-    font-size: 16px;
-    font-weight: normal !important;
-    color: #000000 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: normal !important;
+    color: #000000 !important;
 }
 /* Helvetica Override & Small Font Size */
-.shows-content, .contact-content, 
-.shows-content p, .contact-content p, 
+.shows-content, .contact-content, 
+.shows-content p, .contact-content p, 
 .shows-content a, .contact-content a {
-    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
 }
 
 .shows-content p, .contact-content p {
-    color: #000000 !important;
-    line-height: 1.3 !important;
-    font-weight: normal !important;
-    font-size: 11px !important; /* This makes the font a lot smaller */
-    margin-bottom: 8px; /* Slightly tighter gap for smaller text */
+    color: #000000 !important;
+    line-height: 1.3 !important;
+    font-weight: normal !important;
+    font-size: 11px !important; /* This makes the font a lot smaller */
+    margin-bottom: 8px; /* Slightly tighter gap for smaller text */
 }
 
 /* The Pink Links */
 .shows-content a, .contact-content a {
-    color: #D0878B !important;
-    text-decoration: underline;
-    font-weight: normal !important;
-    font-size: 11px !important;
+    color: #D0878B !important;
+    text-decoration: underline;
+    font-weight: normal !important;
+    font-size: 11px !important;
 }
 
 /* Keep the italic line italicized */
 .no-dates {
-    font-style: italic !important;
+    font-style: italic !important;
 }
 /* Styling for links in both Shows and Contact sections */
 .shows-content a, .contact-content a {
-    color: #D0878B !important; /* Dusty Pink */
-    text-decoration: underline;
-    font-weight: normal !important; /* Ensures no bold */
+    color: #D0878B !important; /* Dusty Pink */
+    text-decoration: underline;
+    font-weight: normal !important; /* Ensures no bold */
 }
 
 /* Ensure body text stays black */
 .shows-content p, .contact-content p {
-    color: #000000 !important;
-    line-height: 1.2 !important;
-    margin-bottom: 12px;
-    font-size: 16px;
+    color: #000000 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px;
+    font-size: 16px;
 }
 .shows-content {
-    color: #000000 !important;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px; /* Moves it down just a bit from the button */
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; /* Moves it down just a bit from the button */
 }
 
 .shows-content p {
-    line-height: 1.2 !important; /* Tight spacing */
-    margin-bottom: 10px; /* Small gap between paragraphs */
-    font-size: 16px;
+    line-height: 1.2 !important; /* Tight spacing */
+    margin-bottom: 10px; /* Small gap between paragraphs */
+    font-size: 16px;
 }
 
 .shows-content a {
-    color: #000000 !important;
-    text-decoration: underline;
-    font-weight: bold;
+    color: #000000 !important;
+    text-decoration: underline;
+    font-weight: bold;
 }
 .shows-content {
-    color: #000000 !important;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px; 
+    color: #000000 !important;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; 
 }
 
 .shows-content p {
-    line-height: 1.2 !important; 
-    margin-bottom: 10px; 
-    font-size: 16px;
-    color: #000000 !important; /* Body text remains black */
+    line-height: 1.2 !important; 
+    margin-bottom: 10px; 
+    font-size: 16px;
+    color: #000000 !important; /* Body text remains black */
 }
 
 /* Style for the italicized line */
 .no-dates {
-    font-style: italic;
+    font-style: italic;
 }
 
 /* Pink Links - No Bold */
 .shows-content a {
-    color: #D0878B !important;
-    text-decoration: underline;
-    font-weight: normal !important; /* Removes bold */
+    color: #D0878B !important;
+    text-decoration: underline;
+    font-weight: normal !important; /* Removes bold */
 }
 /* Compact Video Gallery - Perfectly Positioned */
 .video-container-small {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px; 
-    padding: 0;
-    margin-top: 15px; /* Adjust this number (10px to 20px) to get the exact height you want */
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; 
+    padding: 0;
+    margin-top: 15px; /* Adjust this number (10px to 20px) to get the exact height you want */
+    width: 100%;
 }
 
 .video-box {
-    position: relative;
-    width: 85%;
-    max-width: 230px; 
-    padding-bottom: 48%;
-    height: 0;
-    border: none !important; /* Removes border from the container */
-    background: transparent; /* Ensures no black background shows through */
+    position: relative;
+    width: 85%;
+    max-width: 230px; 
+    padding-bottom: 48%;
+    height: 0;
+    border: none !important; /* Removes border from the container */
+    background: transparent; /* Ensures no black background shows through */
 }
 
 .video-box iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none !important; /* Removes the default YouTube border */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none !important; /* Removes the default YouTube border */
 }
 
 /* Ensure the page itself allows them to sit high */
 #gallery {
-    padding-top: 45px !important; /* Space for the back button */
+    padding-top: 45px !important; /* Space for the back button */
 }
 /* ... existing code ... */
 #gallery {
-    padding-top: 45px !important; 
+    padding-top: 45px !important; 
 }
 
 /* PASTE IT HERE */
-body, 
-a, 
-button, 
-.bookmark, 
-.music-link-item, 
+body, 
+a, 
+button, 
+.bookmark, 
+.music-link-item, 
 .social-icons a,
 .heart-hotspot {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer !important;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer !important;
 }
 /* 1. FORCE THE PENCIL EVERYWHERE: Stops the flickering/changing */
 * {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, auto !important;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, auto !important;
 }
 
 /* 2. BLACK PENCIL UNDERLINE: For all links and buttons */
@@ -1026,22 +1025,24 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     border: none !important;
     box-shadow: none !important;
     color: #000000;
-    font-family: 'Times New Roman', 'Arial', sans-serif !important;
-    font-size: 14.2px; 
-    font-weight: normal;
+    /* Changed to Times New Roman */
+    font-family: 'Times New Roman', Times, serif !important; 
+    font-size: 15px; /* Slightly larger to look good in Serif */
+    font-weight: 400; /* Normal weight for a classic look */
     letter-spacing: 0.05em;
-    text-transform: lowercase;
+    /* Changed to lowercase */
+    text-transform: lowercase; 
     cursor: pointer;
     transition: color 0.2s ease;
     padding: 5px;
 }
-.controls button.active { color: #e8d14e !important; }
-.controls button:hover { color: #D0878B !important; }
+.controls button.active { color: #ffd4e5 !important; }
+.controls button:hover { color: #e8d14e !important; }
 </style>
     </style>
 </head>
 <body>
-    <canvas id="drawingCanvas"></canvas>
+    <canvas id="drawCanvas"></canvas>
 
     <div class="controls">
         <button id="pBtn" class="active" onclick="setTool('pencil')">PENCIL</button>
@@ -1998,36 +1999,21 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     content: '♥'; /* Switches to a solid heart on hover to "fill" it */
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Soft glow */
 }
-/* Mobile Kill-Switch for Pencil Cursor */
-@media (max-width: 768px) {
-    #music.active, 
-    #music.active *, 
-    #gallery.active, 
-    #gallery.active *,
-    .controls,
-    .control-btn {
-        cursor: auto !important;
-    }
-/* MOBILE ONLY DRAWING RESTRICTIONS */
-@media (max-width: 768px) {
-    /* Step A: Make the canvas "ignorable" on the background */
-    canvas {
-        pointer-events: none !important;
-    }
-    
-    /* Step B: Make the canvas "active" only when touching the book area */
-    .book-container canvas {
-        pointer-events: auto !important;
-    }
-
-    /* Step C: Hide the canvas layer when Music or Gallery is active so you can click links */
-    #music.active ~ canvas, 
-    #gallery.active ~ canvas,
-    #music.active ~ .book-container canvas,
-    #gallery.active ~ .book-container canvas {
-        display: none !important;
-    }
+}/* 1. Global Reset: This ensures the pencil is the baseline for EVERYTHING */
+* {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, auto !important;
 }
+
+/* 2. Specific override: This ensures that clickable items still use the pencil but maintain their "pointer" behavior for accessibility */
+a, button, .bookmark, .music-link-item, .social-icons a {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="rotate(45 16 16)"><ellipse cx="16" cy="5" rx="2.5" ry="2" fill="%23ff69b4"/><rect x="14" y="5" width="4" height="1.5" fill="%23555"/><polygon points="14,6.5 18,6.5 18,9 14,9" fill="%23d4a574" stroke="%23a0845a" stroke-width="0.3"/><rect x="14" y="9" width="4" height="15" fill="%23ffd700" stroke="%23e6b800" stroke-width="0.4"/><rect x="14.5" y="9" width="1.2" height="15" fill="%23ffed4e" opacity="0.6"/><rect x="16.8" y="9" width="0.7" height="15" fill="%23d4af37" opacity="0.4"/><polygon points="14.5,24 16,26.5 17.5,24" fill="%23d4a574"/><polygon points="15,26.5 16,28 17,26.5" fill="%23a0845a"/><polygon points="15.5,28 16,28.8 16.5,28" fill="%23222"/></g></svg>') 28 4, pointer !important;
+}
+
+/* 3. prevent the 'glitch' from cover overlays */
+.book::before, .book::after, .heart-texture {
+    pointer-events: none !important;
+}
+
 
     </style>
       
@@ -2197,30 +2183,32 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         return { x: clientX, y: clientY };
     }
 
-    function startDrawing(e) {
-    const isMusicOpen = document.getElementById('music').classList.contains('active');
-    const isGalleryOpen = document.getElementById('gallery').classList.contains('active');
+    function start(e) {
+    // 1. Always block drawing if clicking UI buttons, bookmarks, or back buttons
+    if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
 
-    if (isMusicOpen || isGalleryOpen) {
-        isDrawing = false;
-        return; 
-    }
-
+    // 2. Apply Mobile-Only Restrictions (Phone/Tablet size)
     if (window.innerWidth <= 768) {
-        const book = document.querySelector('.book-container');
-        const rect = book.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const musicPage = document.getElementById('music');
+        const galleryPage = document.getElementById('gallery');
+        
+        // Block if Music or Gallery pages are open
+        if (musicPage.classList.contains('active') || galleryPage.classList.contains('active')) {
+            return;
+        }
 
-        if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
-            isDrawing = false;
-            return; 
+        // Block if touching the background (only allow touches inside .book or .page)
+        if (!e.target.closest('.book') && !e.target.closest('.page')) {
+            return;
         }
     }
 
-    isDrawing = true;
-    draw(e);
+    // If it passes the checks above, start drawing
+    drawing = true;
+    const pos = getPos(e);
+    [lastX, lastY] = [pos.x, pos.y];
 }
+
     function move(e) {
         if (!drawing) return;
         if (e.cancelable) e.preventDefault(); 
