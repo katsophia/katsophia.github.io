@@ -94,9 +94,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* or "contain" if you don't want cropping */
+    object-fit: cover;
     border-radius: 2px;
-    z-index: 1; /* sits above book texture, below everything else */
+    z-index: -1; /* This lets you draw on top of it */
+    pointer-events: none; /* This ensures your mouse "hits" the drawing canvas, not the image */
 }* {
             margin: 0;
             padding: 0;
@@ -1026,7 +1027,7 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     box-shadow: none !important;
     color: #000000;
     font-family: 'Times New Roman', 'Arial', sans-serif !important;
-    font-size: 11.7px; 
+    font-size: 14.2px; 
     font-weight: normal;
     letter-spacing: 0.05em;
     text-transform: lowercase;
