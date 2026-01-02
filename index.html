@@ -2194,12 +2194,29 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     }
 
     function start(e) {
-    // If we click a button or bookmark, don't draw
+    // 1. Block if clicking UI buttons
     if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
-    
-    // This allows drawing to begin
+
+    // 2. Mobile Restrictions (Screen width 768px or less)
+    if (window.innerWidth <= 768) {
+        // Find the pages
+        const musicPage = document.getElementById('music');
+        const galleryPage = document.getElementById('gallery');
+        
+        // Block drawing if Music or Gallery is currently open
+        if ((musicPage && musicPage.classList.contains('active')) || 
+            (galleryPage && galleryPage.classList.contains('active'))) {
+            return;
+        }
+
+        // Block drawing if the touch is NOT on the book or a page
+        if (!e.target.closest('.book') && !e.target.closest('.page')) {
+            return;
+        }
+    }
+
+    // If we get past the checks, start drawing
     drawing = true;
-    
     const pos = getPos(e);
     [lastX, lastY] = [pos.x, pos.y];
 }
