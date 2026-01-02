@@ -1041,7 +1041,10 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </style>
 </head>
 <body>
-    <canvas id="drawCanvas"></canvas>
+    <div class="book-container">
+    <div class="book">
+        </div>
+    <canvas id="drawingCanvas"></canvas> </div>
 
     <div class="controls">
         <button id="pBtn" class="active" onclick="setTool('pencil')">PENCIL</button>
@@ -2008,8 +2011,26 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     .control-btn {
         cursor: auto !important;
     }
-}
+/* MOBILE ONLY DRAWING RESTRICTIONS */
+@media (max-width: 768px) {
+    /* Step A: Make the canvas "ignorable" on the background */
+    canvas {
+        pointer-events: none !important;
+    }
+    
+    /* Step B: Make the canvas "active" only when touching the book area */
+    .book-container canvas {
+        pointer-events: auto !important;
+    }
 
+    /* Step C: Hide the canvas layer when Music or Gallery is active so you can click links */
+    #music.active ~ canvas, 
+    #gallery.active ~ canvas,
+    #music.active ~ .book-container canvas,
+    #gallery.active ~ .book-container canvas {
+        display: none !important;
+    }
+}
 
     </style>
       
@@ -2179,13 +2200,30 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         return { x: clientX, y: clientY };
     }
 
-    function start(e) {
-        if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
-        drawing = true;
-        const pos = getPos(e);
-        [lastX, lastY] = [pos.x, pos.y];
+    function startDrawing(e) {
+    const isMusicOpen = document.getElementById('music').classList.contains('active');
+    const isGalleryOpen = document.getElementById('gallery').classList.contains('active');
+
+    if (isMusicOpen || isGalleryOpen) {
+        isDrawing = false;
+        return; 
     }
 
+    if (window.innerWidth <= 768) {
+        const book = document.querySelector('.book-container');
+        const rect = book.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
+            isDrawing = false;
+            return; 
+        }
+    }
+
+    isDrawing = true;
+    draw(e);
+}
     function move(e) {
         if (!drawing) return;
         if (e.cancelable) e.preventDefault(); 
