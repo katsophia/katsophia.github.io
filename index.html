@@ -1096,8 +1096,22 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     padding-right: 5px;
     padding-bottom: 5px;
 }
-.controls button.active { color: #ffd4e5 !important; }
-.controls button:hover { color: #e8d14e !important; }
+/* Keep the text color change, but don't scale the whole button */
+.controls button:hover { 
+    color: #e8d14e !important; 
+    border-bottom: none !important; /* Removes the underline */
+}
+
+/* ONLY the image/icon pops out */
+.controls button:hover::before {
+    transform: translateX(-50%) scale(1.3); /* Scales the icon only */
+    transition: transform 0.2s ease;
+}
+
+/* Ensure the icon has a smooth transition even when mouse leaves */
+.controls button::before {
+    transition: transform 0.2s ease;
+}
 </style>
     </style>
 </head>
