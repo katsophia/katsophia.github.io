@@ -1140,6 +1140,16 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 /* Ensure the icon has a smooth transition even when mouse leaves */
 .controls button::before {
     transition: transform 0.2s ease;
+    
+}
+/* This makes the button stay pink when selected */
+.controls button.active { 
+    color: #ffd4e5 !important; 
+}
+
+/* Optional: This makes the cartoon icon also stay slightly larger when selected */
+.controls button.active::before {
+    transform: translateX(-50%) scale(1.1);
 }
 </style>
     </style>
