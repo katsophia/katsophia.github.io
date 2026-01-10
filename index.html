@@ -1074,7 +1074,12 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     text-transform: lowercase;
     cursor: pointer;
     transition: color 0.2s ease;
-    padding: 5px;
+    /* REMOVED padding: 5px; */
+    position: relative; 
+    padding-top: 35px;
+    padding-left: 5px;   /* Added these to keep the side spacing clean */
+    padding-right: 5px;
+    padding-bottom: 5px;
 }
 .controls button.active { color: #ffd4e5 !important; }
 .controls button:hover { color: #e8d14e !important; }
@@ -1523,6 +1528,24 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     height: 100%;
     border: none !important;
 }
+
+/* This puts the images in that 35px space we just made */
+.controls button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 28px; height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* These look for the files you upload to your repository */
+#pBtn::before { background-image: url('pencil_icon.png'); }
+#eBtn::before { background-image: url('eraser_icon.png'); }
+.controls button:last-child::before { background-image: url('wand_icon.png'); }
+
 </style>
 
 <!-- MailerLite Popup -->
