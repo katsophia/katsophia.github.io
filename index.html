@@ -1097,24 +1097,15 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         </div>
 
         <div class="bookmarks">
-    <div class="bookmark" onclick="openPage('music')">
-        <div class="bookmark-shape">music</div>
-    </div>
-    <div class="bookmark" onclick="openPage('about')">
-        <div class="bookmark-shape">about</div>
-    </div>
-    <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')">
-        <div class="bookmark-shape">store</div>
-    </div>
-    <div class="bookmark" onclick="openPage('shows')">
-        <div class="bookmark-shape">shows</div>
-    </div>
-    <div class="bookmark" onclick="openPage('gallery')">
-        <div class="bookmark-shape">gallery</div>
-    </div>
-    <div class="bookmark" onclick="openPage('contact')">
-        <div class="bookmark-shape">contact</div>
-    </div>
+    <div class="bookmark" onclick="openPage('music')"><div class="bookmark-shape">music</div></div>
+    <div class="bookmark" onclick="openPage('about')"><div class="bookmark-shape">about</div></div>
+    <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')"><div class="bookmark-shape">store</div></div>
+    
+    <div class="bookmark" onclick="openPage('gallery')"><div class="bookmark-shape">gallery</div></div>
+    
+    <div class="bookmark" onclick="openPage('shows')"><div class="bookmark-shape">shows</div></div>
+    
+    <div class="bookmark" onclick="openPage('contact')"><div class="bookmark-shape">contact</div></div>
 </div>
 
         <div class="page" id="music">
@@ -1209,14 +1200,8 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         <p style="margin-bottom: 10px; font-size: 11.5px !important;">but would you have it any other way?</p>
     </div>
 </div>
-        <div class="page" id="shows">
-    <button class="back-button" onclick="closePage()">home</button>
-    <div class="shows-content">
-        <p>No upcoming dates.</p>
-        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
-    </div>
-</div>
-        <div class="page" id="gallery">
+
+<div class="page" id="gallery">
     <button class="back-button" onclick="closePage()">home</button>
     <div class="spacer-top"></div> <div class="video-container-small">
         <div class="video-box">
@@ -1228,6 +1213,14 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         <div class="video-box">
             <iframe src="https://www.youtube.com/embed/V0D9n7JjoSI" frameborder="0" allowfullscreen></iframe>
         </div>
+    </div>
+</div>
+
+        <div class="page" id="shows">
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="shows-content">
+        <p>No upcoming dates.</p>
+        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
     </div>
 </div>
 
