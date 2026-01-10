@@ -801,7 +801,9 @@ body {
 }
 
 .back-button:hover {
-    transform: scale(1.1); /* Cute pop effect on hover */
+    transform: scale(1.1); /* Keeps the cute pop effect */
+    border-bottom: none !important; /* Removes the black underline specifically for this heart */
+    text-decoration: none !important; /* Safety check to ensure no standard underlines appear */
 }
                 /* add your new style here */
         .social-icons a {
