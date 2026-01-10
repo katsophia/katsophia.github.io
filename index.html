@@ -634,31 +634,72 @@ body {
                     white 16px);
         }
 
-        .page {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 12% 18%, rgba(139,115,85,0.06) 0%, transparent 40%),
-                radial-gradient(ellipse at 88% 82%, rgba(139,115,85,0.05) 0%, transparent 42%),
-                linear-gradient(to bottom, 
-                    #faf0e2 0%, 
-                    #f8ede0 20%, 
-                    #f5e6d3 50%, 
-                    #f2dfc6 80%, 
-                    #f0d9be 100%);
-            border-radius: 0 2px 2px 0;
-            padding: 60px 50px;
-            overflow-y: auto;
-            animation: pageFlip 0.8s ease;
-            transform-origin: left center;
-            box-shadow: 
-                -2px 0 8px rgba(0,0,0,0.12),
-                inset 6px 0 12px rgba(139,115,85,0.08);
-        }
+        /* FIX: Keeps pages inside the book and enables turns */
+
+/* CONTAIN PAGES & ENABLE SCROLLING */
+.page {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f5e6d3;
+    border-radius: 0 2px 2px 0;
+    padding: 50px 25px 25px 25px; 
+    box-sizing: border-box !important;
+    overflow-y: auto; /* ENABLES SCROLLING */
+    overflow-x: hidden;
+    animation: pageFlip 0.8s ease forwards;
+    transform-origin: left center;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.12);
+    z-index: 10;
+}
+
+/* Force Music links to be lowercase */
+#music .music-link-item span {
+    text-transform: lowercase !important;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+/* About letter: Lowercase sentence starts, Proper Nouns capitalized */
+#about-letter-box, #about-letter-box p {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    color: #000 !important;
+    font-weight: normal !important;
+    text-transform: none !important; /* Allows HTML to control caps */
+}
+
+/* Video container styling */
+.video-container-small {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+.video-box iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+/* FIX: Forces Helvetica and small text for About letter */
+#about-letter-box, #about-letter-box p {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    color: #000 !important;
+    text-transform: none !important;
+}
+
+/* The scrollable area within the book */
+.about-scroll-container {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+}
 
         .page::before {
             content: '';
@@ -1056,96 +1097,193 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         </div>
 
         <div class="bookmarks">
-            <div class="bookmark" onclick="openPage('music')">
-                <div class="bookmark-shape">music</div>
-            </div>
-            <div class="bookmark" onclick="openPage('about')">
-                <div class="bookmark-shape">about</div>
-            </div>
-            <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com/', '_blank')">
-                <div class="bookmark-shape">store</div>
-            </div>
-            <div class="bookmark" onclick="openPage('shows')">
-                <div class="bookmark-shape">shows</div>
-            </div>
-            <div class="bookmark" onclick="openPage('gallery')">
-                <div class="bookmark-shape">gallery</div>
-            </div>
-            <div class="bookmark" onclick="openPage('contact')">
-                <div class="bookmark-shape">contact</div>
-            </div>
-
-            <div class="home-pencil" onclick="closePage()">home</div>
-        </div>
+    <div class="bookmark" onclick="openPage('music')"><div class="bookmark-shape">music</div></div>
+    <div class="bookmark" onclick="openPage('about')"><div class="bookmark-shape">about</div></div>
+    <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')"><div class="bookmark-shape">store</div></div>
+    
+    <div class="bookmark" onclick="openPage('gallery')"><div class="bookmark-shape">gallery</div></div>
+    
+    <div class="bookmark" onclick="openPage('shows')"><div class="bookmark-shape">shows</div></div>
+    
+    <div class="bookmark" onclick="openPage('contact')"><div class="bookmark-shape">contact</div></div>
+</div>
 
         <div class="page" id="music">
-            <button class="back-button" onclick="closePage()">home</button>
-            <div class="music-links">
-                <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jN8vZt0ARxiFYbW9MELjfQ&nd=1&dlsi=716add308bf540d6" target="_blank" class="music-link-item">
-                    <img src="https://cdn.simpleicons.org/spotify/000000" class="platform-icon">
-                    <span>Spotify</span>
-                </a>
-                <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
-                    <img src="https://cdn.simpleicons.org/apple/000000" class="platform-icon">
-                    <span>Apple Music</span>
-                </a>
-                <a href="https://www.youtube.com/@katsoyeehaw" target="_blank" class="music-link-item">
-                    <img src="https://cdn.simpleicons.org/youtube/000000" class="platform-icon">
-                    <span>YouTube</span>
-                </a>
-                <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
-                    <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
-                    <span>Bandcamp</span>
-                </a>
-            </div>
-        </div>
+    <button class="back-button" onclick="closePage()">home</button>
+    
+    <div class="music-links">
+        <a href="https://open.spotify.com/artist/7D5Uii0nmQgdZJLkEcF5Bz?si=jN8vZt0ARxiFYbW9MELjfQ&nd=1&dlsi=716add308bf540d6" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/spotify/000000" class="platform-icon">
+            <span>Spotify</span>
+        </a>
+
+        <a href="https://music.apple.com/us/artist/kat-sophia/1672959916" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/apple/000000" class="platform-icon">
+            <span>Apple Music</span>
+        </a>
+
+        <a href="https://www.youtube.com/@katsoyeehaw" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/youtube/000000" class="platform-icon">
+            <span>YouTube</span>
+        </a>
+        
+        <a href="https://music.youtube.com/channel/UCFmQn3PTef-qjOXntqI4piw?si=IPjq5SWqhkB6nbKB" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/youtubemusic/000000" class="platform-icon">
+            <span>YouTube Music</span>
+        </a>
+
+<a href="https://amazon.com/music/player/artists/B0BW9KNVFN/kat-sophia" target="_blank" class="music-link-item">
+    <svg class="platform-icon" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <span>Amazon Music</span>
+</a>
+
+        <a href="https://tidal.com/artist/37503659" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/tidal/000000" class="platform-icon">
+            <span>TIDAL</span>
+        </a>
+
+        <a href="https://www.deezer.com/en/artist/202472827" target="_blank" class="music-link-item">
+    <svg class="platform-icon" viewBox="0 0 24 24" fill="#000000" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <span>Deezer</span>
+</a>
+
+        <a href="https://www.pandora.com/artist/kat-sophia/ARdqq9Zwhd2tb5w" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/pandora/000000" class="platform-icon">
+            <span>Pandora</span>
+        </a>
+
+        <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
+            <span>Bandcamp</span>
+        </a>
+    </div>
+</div>
 
         <div class="page" id="about">
-            <button class="back-button" onclick="closePage()">home</button>
-            <div class="contact-content">
-                <h2 style="font-size: 24px; margin-bottom: 10px; font-family: Garamond, serif; color: #6b5845;">about</h2>
-                <div class="about-letter">
-                    <p>Hi, I’m Kat!</p>
-                    <p>The daughter of an architect and an English teacher, writing and crafting my own worlds was always in my blood.</p>
-                    <p>But music? That was all mine. Here’s how it happened.</p>
-                    <p>My entire life, my emotions have felt like they were louder than those around me, a burden built into me I didn’t choose. The kindest person in school to me was my school librarian. I always felt like I had to alter my entire self to fit in, and she never judged me. We’d talk about how much I loved the Dodgers, since I checked out every book on my idol, Jackie Robinson, until I moved on to all of the baseball books.</p>
-                    <p>I gave her a Dodgers key chain when the school year ended, I was so sad to say goodbye.</p>
-                    <p>I was on a softball team where nobody shared my skin color, and I had the best stats in the league, batting the most home runs and running the fastest in the league, and consistently didn’t get chosen to play on the All Star Team. The one year I made it, I made silver, not gold, and I was benched the entire season.</p>
-                    <p>Later, my family almost lost their house, and I remember all my teammates getting couple dollar smoothies and me not being able to.</p>
-                    <p>From then on, any time I was sad, felt alone, or that life was unbearable, I came up with thrifty ways to make my life beautiful in any way possible. I crafted with colored paper, checked out books and CDs from the library, and listened to my alarm clock radio and danced in my room, forever, until the pain no longer existed. I poured over liner notes in CDs, determined that if I figured out their emotions through their lyrics, I would be able to understand my own. I carried around a journal and doodled and wrote stories and poems that then turned into songs. Nobody understood me like music did.</p>
-                    <p>I hope I can be those words and that music for someone someday.</p>
-                    <p>This determination to make the best out of a bad scenario has shaped who I am today, and allowed me to pursue music from food service jobs I’ve worked over the years. My live show props I use today were made almost entirely for free, just by sheer will. I coded my own website and it’s up for free. I’ve been able to see some of my favorite artists for free, by taking photos of them and writing articles for their teams (Taylor Swift, Beyonce, The 1975, Chappell Roan, Sabrina Carpenter and Lorde to name a few). Now, I am able to live in LA and finally have the time to dedicate to doing music through production assisting a producer who’s worked with artists whose records I had hung against my wall in school. I think that if you turn your world a little sideways, it may be just the thing you’re looking for.</p>
-                    <p>My family wasn’t supportive of my decision to pursue my dream, but I built my own community who supported me and my dream, and now, I’m, hopefully, building my future.</p>
-                    <p>When you’re alone, you are the one who has to live with your decisions and the life you’ve written for yourself. Who do you want to be the person who wrote it?</p>
-                    <p>I think that you should write your own story, and never let somebody tell it for you. Because it doesn’t matter what anyone thinks of you, it matters what you think of yourself.</p>
-                    <p>It can be the hardest thing in the world, I know it was for me.</p>
-                    <p>But would you have it any other way?</p>
-                </div>
+    <button class="back-button" onclick="closePage()">home</button>
+    <div id="about-letter-box" class="about-scroll-container" style="font-family: 'Helvetica', 'Arial', sans-serif !important; font-weight: normal !important; text-transform: none !important;">
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important; font-weight: normal !important;">hi, i’m Kat!</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">the daughter of an architect and an English teacher, writing and crafting my own worlds was always in my blood.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">but music? that was all mine. here’s how it happened.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">my entire life, my emotions have felt like they were louder than those around me, a burden built into me i didn’t choose. </p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">the kindest person in school to me was my school librarian. i always felt like i had to alter my entire self to fit in, and she never judged me. we’d talk about how much i loved the Dodgers, since i checked out every book on my idol, Jackie Robinson, until i moved on to all of the baseball books.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i gave her a Dodgers key chain when the school year ended, i was so sad to say goodbye.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i was on a softball team where nobody shared my skin color, and i had the best stats in the league, batting the most home runs and running the fastest in the league, and consistently didn’t get chosen to play on the All Star Team. the one year i made it, i made silver, not gold, and i was benched the entire season.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">later, my family almost lost their house, and i remember all my teammates getting couple dollar smoothies and me not being able to.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">from then on, any time i was sad, felt alone, or that life was unbearable, i came up with thrifty ways to make my life beautiful in any way possible. i crafted with colored paper, checked out books and CDs from the library, and listened to my alarm clock radio and danced in my room, forever, until the pain no longer existed. i poured over liner notes in CDs, determined that if i figured out their emotions through their lyrics, i would be able to understand my own. i carried around a journal and doodled and wrote stories and poems that then turned into songs. nobody understood me like music did.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i hope i can be those words and that music for someone someday.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">this determination to make the best out of a bad scenario has shaped who i am today, and allowed me to pursue music from food service jobs i’ve worked over the years. my live show props i use today were made almost entirely for free, just by sheer will. i coded my own website and it’s up for free. i’ve been able to see some of my favorite artists for free, by taking photos of them and writing articles for their teams (<a href="https://www.independent.com/2023/08/15/review-taylor-swifts-eras-tour-is-better-than-you-think/" target="_blank" style="color: inherit; text-decoration: underline;">Taylor Swift</a>, <a href="https://www.independent.com/2023/09/09/beyonces-renaissance-world-tour-proves-her-power/" target="_blank" style="color: inherit; text-decoration: underline;">Beyonce</a>, <a href="https://www.independent.com/2022/12/04/kissing-fainting-and-exercising-the-1975-welcome-you-into-their-home/" target="_blank" style="color: inherit; text-decoration: underline;">The 1975</a>, <a href="https://www.independent.com/2025/10/24/review-chappell-roans-visions-of-damsels-and-other-dangerous-things-tour/" target="_blank" style="color: inherit; text-decoration: underline;">Chappell Roan</a>, <a href="https://www.independent.com/2025/12/03/review-sabrina-carpenters-short-n-sweet-tour/" target="_blank" style="color: inherit; text-decoration: underline;">Sabrina Carpenter</a> and <a href="https://www.independent.com/2025/10/24/review-the-ultrasound-world-tour-with-lorde/" target="_blank" style="color: inherit; text-decoration: underline;">Lorde</a> to name a few). now, i am able to live in LA and finally have the time to dedicate to doing music through production assisting a producer who’s worked with artists whose records i had hung against my wall in school. i think that if you turn your world a little sideways, it may be just the thing you’re looking for.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">my family wasn’t supportive of my decision to pursue my dream, but i built my own community who supported me and my dream, and now, i’m, hopefully, building my future.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">when you’re alone, you are the one who has to live with your decisions and the life you’ve written for yourself. who do you want to be the person who wrote it?</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i think that you should write your own story, and never let somebody tell it for you. because it doesn’t matter what anyone thinks of you, it matters what you think of yourself.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">it can be the hardest thing in the world, i know it was for me.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">but would you have it any other way?</p>
+    </div>
+</div>
+
+<div class="page" id="gallery">
+    <button class="back-button" onclick="closePage()">home</button>
+    
+    <div class="gallery-header">videos</div>
+    <div class="scrapbook-videos" style="width: 100%; margin-top: 15px;">
+
+        <div class="video-scrapbook-container" style="transform: rotate(-1.2deg);">
+            <div class="tape-sticker"></div>
+            <div class="video-box-scrapbook">
+                <iframe src="https://www.youtube.com/embed/6LoQmlyhiyc" allowfullscreen></iframe>
             </div>
         </div>
 
+        <div class="video-scrapbook-container" style="transform: rotate(1.5deg);">
+            <div class="tape-sticker" style="transform: translateX(-50%) rotate(3deg); width: 100px;"></div>
+            <div class="video-box-scrapbook">
+                <iframe src="https://www.youtube.com/embed/t2Ax9kPExho" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="video-scrapbook-container" style="transform: rotate(-0.8deg);">
+            <div class="tape-sticker"></div>
+            <div class="video-box-scrapbook">
+                <iframe src="https://www.youtube.com/embed/V0D9n7JjoSI" allowfullscreen></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="gallery-header" style="margin-top: 45px;">photos</div>
+    <div class="scrapbook-photos" style="width: 100%;">
+
+        <div class="photo-container" style="transform: rotate(-1deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_1.JPEG" alt="Kat Sophia 1">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(1.5deg);">
+            <div class="tape-sticker" style="transform: translateX(-50%) rotate(3deg);"></div>
+            <img src="KS_IMAGE_2.JPEG" alt="Kat Sophia 2">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(-0.5deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_3.JPEG" alt="Kat Sophia 3">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(1deg);">
+            <div class="tape-sticker" style="width: 70px; transform: translateX(-50%) rotate(-2deg);"></div>
+            <img src="KS_IMAGE_4.JPEG" alt="Kat Sophia 4">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(-1.5deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_5.JPEG" alt="Kat Sophia 5">
+        </div>
+
+        <div class="photo-container">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_6.JPEG" alt="Kat Sophia 6">
+        </div>
+
+    </div>
+</div>
+
         <div class="page" id="shows">
-            <button class="back-button" onclick="closePage()">home</button>
-            <div class="shows-content">
-                <p>No upcoming dates.</p>
-                <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a></p>
-            </div>
-        </div>
-        <div class="page" id="gallery">
-            <button class="back-button" onclick="closePage()">home</button>
-            <div class="video-container-small">
-                <div class="video-box">
-                    <iframe src="https://www.youtube.com/embed/6LoQmlyhiyc" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="shows-content">
+        <p>No upcoming dates.</p>
+        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
+    </div>
+</div>
+
         <div class="page" id="contact">
-            <button class="back-button" onclick="closePage()">home</button>
-            <div class="contact-content">
-                <p>Contact</p>
-                <p><a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
-            </div>
-        </div>
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="contact-content">
+        <p>Contact</p>
+        <p>For booking, press, or general inquiries:<br>
+        <a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
+        
+        <p>For music updates join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
+    </div>
+</div>
     </div>
 </body>
 <script>
@@ -1290,6 +1428,18 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 /* Force the About Page to stay small and use Helvetica */
 #about {
     overflow: hidden !important; /* Prevents the book from stretching */
+    #about-letter-box a {
+    color: #D0878B !important; /* Dusty Pink */
+    text-decoration: none !important; /* Removes the underline */
+    display: inline !important;
+    cursor: pointer !important;
+    border-bottom: none !important; /* Ensures no border is acting as an underline */
+}
+
+#about-letter-box a:hover {
+    color: #ff6b7a !important; /* Brighter pink on hover */
+    text-decoration: underline !important; /* Optional: adds underline only when hovering */
+}
 }
 
 #about div, #about p {
@@ -1304,6 +1454,74 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 }
 #about .about-scroll-container::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,0.1);
+}
+
+/* CLEAN TRANSPARENT TAPE - NO LINES */
+.tape-sticker {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 90px;
+    height: 25px;
+    /* Clean clear white at 40% opacity */
+    background-color: rgba(255, 255, 255, 0.4); 
+    backdrop-filter: blur(1px); /* Gives it that real "Scotch tape" feel */
+    z-index: 5;
+    pointer-events: none;
+
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+/* Fix to keep images within book boundaries */
+.photo-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.photo-container img {
+    width: 100% !important;
+    height: auto;
+    display: block;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.08);
+}
+/* Gallery Headers: Exact match to Music Tab style */
+.gallery-header {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 13px !important; /* Matches music link font size */
+    letter-spacing: 1px !important; /* Matches music link spacing */
+    color: #000000 !important; /* Pure black */
+    text-transform: lowercase !important;
+    font-weight: normal !important;
+    margin: 30px 0 15px 0;
+    padding-left: 5px; /* Slight offset to look more natural */
+    display: block;
+}
+/* SCRAPBOOK STYLE FOR VIDEOS */
+.video-scrapbook-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px; /* Space for tape and tilt */
+}
+
+.video-box-scrapbook {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* FORCES CORRECT SHAPE TO REMOVE BLACK LINES */
+    background: transparent;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: block;
+}
+
+.video-box-scrapbook iframe {
+    width: 100%;
+    height: 100%;
+    border: none !important;
 }
 </style>
 
