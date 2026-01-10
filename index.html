@@ -1203,16 +1203,54 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 
 <div class="page" id="gallery">
     <button class="back-button" onclick="closePage()">home</button>
-    <div class="spacer-top"></div> <div class="video-container-small">
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/6LoQmlyhiyc" frameborder="0" allowfullscreen></iframe>
+    
+    <h3 class="gallery-header">videos</h3>
+    <div class="video-container-small" style="width: 100%;">
+        <div class="video-box" style="width: 100%; margin-bottom: 12px;">
+            <iframe src="https://www.youtube.com/embed/6LoQmlyhiyc" allowfullscreen style="width:100%;"></iframe>
         </div>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/t2Ax9kPExho" frameborder="0" allowfullscreen></iframe>
+        <div class="video-box" style="width: 100%; margin-bottom: 12px;">
+            <iframe src="https://www.youtube.com/embed/t2Ax9kPExho" allowfullscreen style="width:100%;"></iframe>
         </div>
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/V0D9n7JjoSI" frameborder="0" allowfullscreen></iframe>
+        <div class="video-box" style="width: 100%; margin-bottom: 12px;">
+            <iframe src="https://www.youtube.com/embed/V0D9n7JjoSI" allowfullscreen style="width:100%;"></iframe>
         </div>
+    </div>
+
+    <h3 class="gallery-header" style="margin-top: 40px;">photos</h3>
+    <div class="scrapbook-photos" style="width: 100%;">
+
+        <div class="photo-container" style="transform: rotate(-1deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_1.JPEG" alt="Kat Sophia 1">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(1.5deg);">
+            <div class="tape-sticker" style="transform: translateX(-50%) rotate(3deg);"></div>
+            <img src="KS_IMAGE_2.JPEG" alt="Kat Sophia 2">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(-0.5deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_3.JPEG" alt="Kat Sophia 3">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(1deg);">
+            <div class="tape-sticker" style="width: 70px; transform: translateX(-50%) rotate(-2deg);"></div>
+            <img src="KS_IMAGE_4.JPEG" alt="Kat Sophia 4">
+        </div>
+
+        <div class="photo-container" style="transform: rotate(-1.5deg);">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_5.JPEG" alt="Kat Sophia 5">
+        </div>
+
+        <div class="photo-container">
+            <div class="tape-sticker"></div>
+            <img src="KS_IMAGE_6.JPEG" alt="Kat Sophia 6">
+        </div>
+
+    </div>
     </div>
 </div>
 
@@ -1404,6 +1442,53 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 }
 #about .about-scroll-container::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,0.1);
+}
+
+/* CLEAN TRANSPARENT TAPE - NO LINES */
+.tape-sticker {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 90px;
+    height: 25px;
+    /* Clean clear white at 40% opacity */
+    background-color: rgba(255, 255, 255, 0.4); 
+    backdrop-filter: blur(1px); /* Gives it that real "Scotch tape" feel */
+    z-index: 5;
+    pointer-events: none;
+
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+/* Fix to keep images within book boundaries */
+.photo-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.photo-container img {
+    width: 100% !important;
+    height: auto;
+    display: block;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.08);
+}
+/* Gallery Headers: Exact match to Music Tab style */
+.gallery-header {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 13px !important; /* Matches music link font size */
+    letter-spacing: 1px !important; /* Matches music link spacing */
+    color: #000000 !important; /* Pure black */
+    text-transform: lowercase !important;
+    font-weight: normal !important;
+    margin: 30px 0 15px 0;
+    padding-left: 5px; /* Slight offset to look more natural */
+    display: block;
 }
 </style>
 
