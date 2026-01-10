@@ -2207,6 +2207,8 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     #music.active *, 
     #gallery.active, 
     #gallery.active *,
+    #about.active, 
+    #about.active *,
     .controls,
     .control-btn {
         cursor: auto !important;
@@ -2408,7 +2410,8 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         
         // Block drawing if Music or Gallery is currently open
         if ((musicPage && musicPage.classList.contains('active')) || 
-            (galleryPage && galleryPage.classList.contains('active'))) {
+            (galleryPage && galleryPage.classList.contains('active')) ||
+            (aboutPage && aboutPage.classList.contains('active'))) {
             return;
         }
 
