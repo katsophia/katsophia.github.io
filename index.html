@@ -634,31 +634,72 @@ body {
                     white 16px);
         }
 
-        .page {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 12% 18%, rgba(139,115,85,0.06) 0%, transparent 40%),
-                radial-gradient(ellipse at 88% 82%, rgba(139,115,85,0.05) 0%, transparent 42%),
-                linear-gradient(to bottom, 
-                    #faf0e2 0%, 
-                    #f8ede0 20%, 
-                    #f5e6d3 50%, 
-                    #f2dfc6 80%, 
-                    #f0d9be 100%);
-            border-radius: 0 2px 2px 0;
-            padding: 60px 50px;
-            overflow-y: auto;
-            animation: pageFlip 0.8s ease;
-            transform-origin: left center;
-            box-shadow: 
-                -2px 0 8px rgba(0,0,0,0.12),
-                inset 6px 0 12px rgba(139,115,85,0.08);
-        }
+        /* FIX: Keeps pages inside the book and enables turns */
+
+/* CONTAIN PAGES & ENABLE SCROLLING */
+.page {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f5e6d3;
+    border-radius: 0 2px 2px 0;
+    padding: 50px 25px 25px 25px; 
+    box-sizing: border-box !important;
+    overflow-y: auto; /* ENABLES SCROLLING */
+    overflow-x: hidden;
+    animation: pageFlip 0.8s ease forwards;
+    transform-origin: left center;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.12);
+    z-index: 10;
+}
+
+/* Force Music links to be lowercase */
+#music .music-link-item span {
+    text-transform: lowercase !important;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+/* About letter: Lowercase sentence starts, Proper Nouns capitalized */
+#about-letter-box, #about-letter-box p {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    color: #000 !important;
+    font-weight: normal !important;
+    text-transform: none !important; /* Allows HTML to control caps */
+}
+
+/* Video container styling */
+.video-container-small {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+.video-box iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+/* FIX: Forces Helvetica and small text for About letter */
+#about-letter-box, #about-letter-box p {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    color: #000 !important;
+    text-transform: none !important;
+}
+
+/* The scrollable area within the book */
+.about-scroll-container {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+}
 
         .page::before {
             content: '';
@@ -1050,35 +1091,31 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </div>
     
     <div class="book-container">
-    <div class="book" id="bookCover">
-        <img src="bookcover.jpg" class="cover-image">
-        
-        <a href="https://open.spotify.com/track/0ZVuznKmgWPjJPWQYfiw18?si=667293411a204de4" 
-           target="_blank" 
-           class="heart-hotspot">
-        </a>
-    </div>
+        <div class="book" id="bookCover">
+            <img src="bookcover.jpg" class="cover-image">
+            <a href="https://open.spotify.com/track/0ZVuznKmgWPjJPWQYfiw18?si=667293411a204de4" target="_blank" class="heart-hotspot"></a>
+        </div>
 
         <div class="bookmarks">
-            <div class="bookmark" onclick="closePage()">
-                <div class="bookmark-shape">home</div>
-            </div>
-            <div class="bookmark" onclick="openPage('music')">
-                <div class="bookmark-shape">music</div>
-            </div>
-            <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')">
-    <div class="bookmark-shape">store</div>
+    <div class="bookmark" onclick="openPage('music')">
+        <div class="bookmark-shape">music</div>
+    </div>
+    <div class="bookmark" onclick="openPage('about')">
+        <div class="bookmark-shape">about</div>
+    </div>
+    <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')">
+        <div class="bookmark-shape">store</div>
+    </div>
+    <div class="bookmark" onclick="openPage('shows')">
+        <div class="bookmark-shape">shows</div>
+    </div>
+    <div class="bookmark" onclick="openPage('gallery')">
+        <div class="bookmark-shape">gallery</div>
+    </div>
+    <div class="bookmark" onclick="openPage('contact')">
+        <div class="bookmark-shape">contact</div>
+    </div>
 </div>
-            <div class="bookmark" onclick="openPage('shows')">
-                <div class="bookmark-shape">shows</div>
-            </div>
-            <div class="bookmark" onclick="openPage('gallery')">
-                <div class="bookmark-shape">gallery</div>
-            </div>
-            <div class="bookmark" onclick="openPage('contact')">
-                <div class="bookmark-shape">contact</div>
-            </div>
-        </div>
 
         <div class="page" id="music">
     <button class="back-button" onclick="closePage()">home</button>
@@ -1135,6 +1172,48 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </div>
 </div>
 
+        <div class="page" id="about">
+    <button class="back-button" onclick="closePage()">home</button>
+    <div id="about-letter-box" class="about-scroll-container" style="font-family: 'Helvetica', 'Arial', sans-serif !important; font-weight: normal !important; text-transform: none !important;">
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important; font-weight: normal !important;">hi, i’m Kat!</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">the daughter of an architect and an English teacher, writing and crafting my own worlds was always in my blood.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">but music? that was all mine. here’s how it happened.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">my entire life, my emotions have felt like they were louder than those around me, a burden built into me i didn’t choose. the kindest person in school to me was my school librarian. i always felt like i had to alter my entire self to fit in, and she never judged me. we’d talk about how much i loved the Dodgers, since i checked out every book on my idol, Jackie Robinson, until i moved on to all of the baseball books.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i gave her a Dodgers key chain when the school year ended, i was so sad to say goodbye.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i was on a softball team where nobody shared my skin color, and i had the best stats in the league, batting the most home runs and running the fastest in the league, and consistently didn’t get chosen to play on the All Star Team. the one year i made it, i made silver, not gold, and i was benched the entire season.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">later, my family almost lost their house, and i remember all my teammates getting couple dollar smoothies and me not being able to.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">from then on, any time i was sad, felt alone, or that life was unbearable, i came up with thrifty ways to make my life beautiful in any way possible. i crafted with colored paper, checked out books and CDs from the library, and listened to my alarm clock radio and danced in my room, forever, until the pain no longer existed. i poured over liner notes in CDs, determined that if i figured out their emotions through their lyrics, i would be able to understand my own. i carried around a journal and doodled and wrote stories and poems that then turned into songs. nobody understood me like music did.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i hope i can be those words and that music for someone someday.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">this determination to make the best out of a bad scenario has shaped who i am today, and allowed me to pursue music from food service jobs i’ve worked over the years. my live show props i use today were made almost entirely for free, just by sheer will. i coded my own website and it’s up for free. i’ve been able to see some of my favorite artists for free, by taking photos of them and writing articles for their teams (<a href="https://www.independent.com/2023/08/15/review-taylor-swifts-eras-tour-is-better-than-you-think/" target="_blank" style="color: inherit; text-decoration: underline;">Taylor Swift</a>, <a href="https://www.independent.com/2023/09/09/beyonces-renaissance-world-tour-proves-her-power/" target="_blank" style="color: inherit; text-decoration: underline;">Beyonce</a>, <a href="https://www.independent.com/2022/12/04/kissing-fainting-and-exercising-the-1975-welcome-you-into-their-home/" target="_blank" style="color: inherit; text-decoration: underline;">The 1975</a>, <a href="https://www.independent.com/2025/10/24/review-chappell-roans-visions-of-damsels-and-other-dangerous-things-tour/" target="_blank" style="color: inherit; text-decoration: underline;">Chappell Roan</a>, <a href="https://www.independent.com/2025/12/03/review-sabrina-carpenters-short-n-sweet-tour/" target="_blank" style="color: inherit; text-decoration: underline;">Sabrina Carpenter</a> and <a href="https://www.independent.com/2025/10/24/review-the-ultrasound-world-tour-with-lorde/" target="_blank" style="color: inherit; text-decoration: underline;">Lorde</a> to name a few). now, i am able to live in LA and finally have the time to dedicate to doing music through production assisting a producer who’s worked with artists whose records i had hung against my wall in school. i think that if you turn your world a little sideways, it may be just the thing you’re looking for.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">my family wasn’t supportive of my decision to pursue my dream, but i built my own community who supported me and my dream, and now, i’m, hopefully, building my future.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">when you’re alone, you are the one who has to live with your decisions and the life you’ve written for yourself. who do you want to be the person who wrote it?</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">i think that you should write your own story, and never let somebody tell it for you. because it doesn’t matter what anyone thinks of you, it matters what you think of yourself.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">it can be the hardest thing in the world, i know it was for me.</p>
+        
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">but would you have it any other way?</p>
+    </div>
+</div>
+        <div class="page" id="shows">
+    <button class="back-button" onclick="closePage()">home</button>
+    <div class="shows-content">
+        <p>No upcoming dates.</p>
+        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
+    </div>
+</div>
         <div class="page" id="gallery">
     <button class="back-button" onclick="closePage()">home</button>
     <div class="spacer-top"></div> <div class="video-container-small">
@@ -1150,36 +1229,18 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </div>
 </div>
 
-<div class="page" id="shows">
-    <button class="back-button" onclick="closePage()">home</button>
-    <div class="shows-content">
-        <p>No upcoming dates.</p>
-        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
-    </div>
-</div>
-
-<div class="page" id="contact">
+        <div class="page" id="contact">
     <button class="back-button" onclick="closePage()">home</button>
     <div class="contact-content">
         <p>Contact</p>
         <p>For booking, press, or general inquiries:<br>
         <a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
         
-        <p>For music updates, join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
+        <p>For music updates join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
     </div>
 </div>
-
-        <div class="page" id="store">
-            <button class="back-button" onclick="closePage()">home</button>
-            <!-- Add your store content here -->
-        </div>
-
-        <div class="page" id="contact">
-            <button class="back-button" onclick="closePage()">home</button>
-            <!-- Add your contact content here -->
-        </div>
     </div>
-    
+</body>
 <script>
         function openPage(pageId) {
             // 1. Hide the book cover
@@ -1319,7 +1380,36 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     cursor: pointer;
     opacity: 0.9;
 }
+/* Force the About Page to stay small and use Helvetica */
+#about {
+    overflow: hidden !important; /* Prevents the book from stretching */
+    #about-letter-box a {
+    color: #D0878B !important; /* Dusty Pink */
+    text-decoration: none !important; /* Removes the underline */
+    display: inline !important;
+    cursor: pointer !important;
+    border-bottom: none !important; /* Ensures no border is acting as an underline */
+}
 
+#about-letter-box a:hover {
+    color: #ff6b7a !important; /* Brighter pink on hover */
+    text-decoration: underline !important; /* Optional: adds underline only when hovering */
+}
+}
+
+#about div, #about p {
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    line-height: 1.4 !important; /* Reduces the huge gaps between lines */
+    text-transform: none !important;
+}
+
+/* Custom scrollbar to keep it clean */
+#about .about-scroll-container::-webkit-scrollbar {
+    width: 3px;
+}
+#about .about-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1);
+}
 </style>
 
 <!-- MailerLite Popup -->
