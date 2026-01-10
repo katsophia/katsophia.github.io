@@ -770,11 +770,17 @@ body {
         }
 
         .back-button {
-    position: absolute;
-    top: 8px;
-    right: 15px;
+    position: fixed !important;
+    top: 5px !important;    /* Adjusted to sit higher over the bookmark */
+    right: 15px !important; 
     width: 65px; 
     height: 70px; 
+    
+    /* 1. LAYER COMMAND - This makes it the top layer */
+    z-index: 20000 !important; 
+
+    /* 2. CLICK AREA - Ensures the mouse recognizes it first */
+    pointer-events: auto !important;
     border: none !important;
     background: transparent !important;
     text-decoration: none !important;
