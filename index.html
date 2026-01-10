@@ -2422,29 +2422,35 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     }
 
     function start(e) {
-    // 1. Block if clicking UI buttons
-    if (e.target.tagName === 'BUTTON' || e.target.closest('.bookmarks') || e.target.closest('.back-button')) return;
+    // 1. Always block drawing if clicking actual UI buttons (Eraser/Pencil/Clear)
+    if (e.target.tagName === 'BUTTON') return;
 
-    // 2. Mobile Restrictions (Screen width 768px or less)
+    // 2. MOBILE ONLY LOGIC
     if (window.innerWidth <= 768) {
-        // Find the pages
         const musicPage = document.getElementById('music');
         const galleryPage = document.getElementById('gallery');
-        
-        // Block drawing if Music or Gallery is currently open
+        const aboutPage = document.getElementById('about');
+
+        // ONLY block drawing if the long-text scrolling pages are active
         if ((musicPage && musicPage.classList.contains('active')) || 
             (galleryPage && galleryPage.classList.contains('active')) ||
             (aboutPage && aboutPage.classList.contains('active'))) {
             return;
         }
 
-        // Block drawing if the touch is NOT on the book or a page
-        if (!e.target.closest('.book') && !e.target.closest('.page')) {
-            return;
+        // ALLOW drawing if touching the Book Cover or the Popup Mailing List
+        const isCover = e.target.closest('.book');
+        const isPopup = e.target.closest('.popup');
+        const isContact = e.target.closest('#contact'); // Specifically allow contact page drawing
+
+        if (!isCover && !isPopup && !isContact) {
+            // If they aren't on cover, contact, or popup, and no scroll page is open,
+            // check if they are touching a generic "page" area (like Contact)
+            if (!e.target.closest('.page')) return;
         }
     }
 
-    // If we get past the checks, start drawing
+    // 3. START DRAWING (Always works on Desktop, works on allowed Mobile areas)
     drawing = true;
     const pos = getPos(e);
     [lastX, lastY] = [pos.x, pos.y];
