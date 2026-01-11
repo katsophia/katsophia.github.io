@@ -685,10 +685,9 @@ body {
     border: none;
 }
 
-/* FIX: Forces Helvetica and small text for About letter */
-#about-letter-box, #about-letter-box p {
+#about-letter-box, #about-letter-box p, #about-letter-box a {
     font-family: 'Helvetica', 'Arial', sans-serif !important;
-    font-size: 11.5px !important;
+    font-size: 11.5px !important; /* Changed from 11.5px to 13px */
     line-height: 1.4 !important;
     color: #000 !important;
     text-transform: none !important;
@@ -886,7 +885,7 @@ body {
 
 #music .music-link-item span {
     font-family: 'Helvetica', 'Arial', sans-serif !important;
-    font-size: 13px;      /* Smaller, cleaner font size */
+    font-size: 15px;      /* Smaller, cleaner font size */
     letter-spacing: 1px;  /* Slight spacing for readability */
     font-weight: normal;
     text-transform: lowercase; /* Forces all names to lowercase */
@@ -948,12 +947,34 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif !important;
 }
 
-.shows-content p, .contact-content p {
-    color: #000000 !important;
+/* Unifies font size across all content pages and the gallery */
+.shows-content p, 
+.contact-content p, 
+#about-letter-box p, 
+.gallery-caption p {
+    font-size: 11.5px !important;
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
     line-height: 1.3 !important;
-    font-weight: normal !important;
-    font-size: 11px !important; /* This makes the font a lot smaller */
-    margin-bottom: 8px; /* Slightly tighter gap for smaller text */
+    color: #000000 !important;
+}
+
+/* Ensure all links within these sections match */
+.shows-content a, 
+.contact-content a, 
+#about-letter-box a,
+.gallery-caption a {
+    font-size: 11.5px !important;
+}
+/* About Link (Jackie Robinson) */
+#about-letter-box a {
+    text-decoration: underline !important;
+    color: #000 !important;
+}
+
+/* Shows & Contact Links (Pink) */
+.shows-content a, .contact-content a {
+    color: #D0878B !important;
+    text-decoration: underline !important;
 }
 
 /* The Pink Links */
@@ -961,7 +982,7 @@ body {
     color: #D0878B !important;
     text-decoration: underline;
     font-weight: normal !important;
-    font-size: 11px !important;
+    font-size: 11.5px !important;
 }
 
 /* Keep the italic line italicized */
@@ -1225,6 +1246,11 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     <span>Amazon Music</span>
 </a>
 
+<a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
+            <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
+            <span>Bandcamp</span>
+        </a>
+
         <a href="https://tidal.com/artist/37503659" target="_blank" class="music-link-item">
             <img src="https://cdn.simpleicons.org/tidal/000000" class="platform-icon">
             <span>TIDAL</span>
@@ -1241,11 +1267,6 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
             <img src="https://cdn.simpleicons.org/pandora/000000" class="platform-icon">
             <span>Pandora</span>
         </a>
-
-        <a href="https://katsophia.bandcamp.com/" target="_blank" class="music-link-item">
-            <img src="https://cdn.simpleicons.org/bandcamp/000000" class="platform-icon">
-            <span>Bandcamp</span>
-        </a>
     </div>
 </div>
 
@@ -1261,7 +1282,7 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         
         <p style="margin-bottom: 10px; font-size: 11.5px !important;">my entire life, my emotions have felt like they were louder than those around me, a burden built into me i didn’t choose. </p>
         
-        <p style="margin-bottom: 10px; font-size: 11.5px !important;">the kindest person in school to me was my school librarian. i always felt like i had to alter my entire self to fit in, and she never judged me. we’d talk about how much i loved the Dodgers, since i checked out every book on my idol, Jackie Robinson, until i moved on to all of the baseball books.</p>
+        <p style="margin-bottom: 10px; font-size: 11.5px !important;">the kindest person in school to me was my school librarian. i always felt like i had to alter my entire self to fit in, and she never judged me. we’d talk about how much i loved the Dodgers, since i checked out every book on my idol, <a href="https://newsletter.alumni.ucla.edu/connect/2019/feb/jackie/default.htm" target="_blank" style="text-decoration: underline; color: inherit;">Jackie Robinson</a>, until i moved on to all of the baseball books.</p>
         
         <p style="margin-bottom: 10px; font-size: 11.5px !important;">i gave her a Dodgers key chain when the school year ended, i was so sad to say goodbye.</p>
         
@@ -1596,7 +1617,7 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 /* Gallery Headers: Exact match to Music Tab style */
 .gallery-header {
     font-family: 'Helvetica', 'Arial', sans-serif !important;
-    font-size: 13px !important; /* Matches music link font size */
+    font-size: 11.5px !important; /* Matches music link font size */
     letter-spacing: 1px !important; /* Matches music link spacing */
     color: #000000 !important; /* Pure black */
     text-transform: lowercase !important;
