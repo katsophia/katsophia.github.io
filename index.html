@@ -1352,22 +1352,39 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </div>
 </div>
 
-        <div class="page" id="shows">
+        <div id="shows" class="page">
     <button class="back-button" onclick="closePage()">home</button>
-    <div class="shows-content">
-        <p>No upcoming dates.</p>
-        <p>Sign up for my <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share">Mailing List</a> & follow my <a href="https://www.instagram.com/katsoyeehaw/">Instagram</a> to get notified when shows are announced.</p>
+    <div class="shows-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100%; text-align: center; margin-top: 0;">
+        <p class="no-dates">no upcoming shows at the moment.</p>
+        <p>sign up for the <a href="#" onclick="showPopup()">mailing list</a> to be the first to know about new dates.</p>
+        <p>you can also follow my <a href="https://www.instagram.com/katsoyeehaw/">instagram</a> to get notified when shows are announced.</p>
+
+        <hr style="border: 0; border-top: 1px solid rgba(139, 115, 85, 0.2); margin: 20px 0; width: 60%;">
+
+        <p>donate: if you ever want to support future shows, there’s a tip jar linked if you’d like to support my dream of bringing my songs to the road:</p>
+        <p><a href="https://ko-fi.com/katsophia" target="_blank">https://ko-fi.com/katsophia</a></p>
+        <p>thank you 🩷</p>
     </div>
 </div>
 
         <div class="page" id="contact">
     <button class="back-button" onclick="closePage()">home</button>
-    <div class="contact-content">
-        <p>Contact</p>
-        <p>For booking, press, or general inquiries:<br>
-        <a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
+    
+    <div class="contact-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%; text-align: center; margin: 0 !important; position: absolute; top: 0; left: 0;">
         
-        <p>For music updates join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
+        <p class="no-dates" style="margin: 0; line-height: 1.1; padding-bottom: 5px;">contact</p>
+
+        <p style="margin: 0; line-height: 1.1;">for booking, press, or general inquiries:</p>
+        <p style="margin: 0; line-height: 1.1;"><a href="mailto:katsophiamgmt@gmail.com">katsophiamgmt@gmail.com</a></p>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(139, 115, 85, 0.2); margin: 10px 0; width: 60%;">
+
+        <p style="margin: 0; line-height: 1.1;">for music updates join the <a href="https://preview.mailerlite.io/forms/1975081/173409734897960151/share" target="_blank">mailing list</a>.</p>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(139, 115, 85, 0.2); margin: 10px 0; width: 60%;">
+
+        <p style="margin: 0; line-height: 1.1;">join my fans on <a href="https://discord.gg/xVYJrqqzTC" target="_blank">discord</a> 🩷</p>
+        
     </div>
 </div>
     </div>
