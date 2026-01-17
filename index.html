@@ -876,10 +876,10 @@ body {
 .brush-text {
     position: absolute;
     top: 50%;
-    left: 45%;
-    transform: translate(-50%, -50%) rotate(5deg);
+    left: 105%; /* This moves the text just outside the right edge of the image */
+    transform: translateY(-50%) rotate(5deg); /* Centers it vertically only */
     font-family: 'Times New Roman', Times, serif !important;
-    color: white;
+    color: white; /* Change to black if your background is light! */
     font-size: 14px;
     text-transform: lowercase;
     pointer-events: none;
