@@ -797,10 +797,11 @@ body {
     background-color: transparent !important; 
     
     /* ... rest of your code ... */
-    /* 2. THE TEXT - Kept in the same place */
-    display: block;
-    text-align: center;
-    padding-top: 12.5px; 
+/* Centering the Text */
+    display: flex !important;
+    align-items: center;     /* Centers vertically */
+    justify-content: center;  /* Centers horizontally */
+    padding-top: 0 !important; /* Removed the 12.5px that was pushing it up */
     
     /* 3. FONT STYLING */
     font-family: 'Times New Roman', Times, serif !important;
