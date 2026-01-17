@@ -851,11 +851,12 @@ body {
                 
                 /* FLOATING PAINTBRUSH */
 /* FLOATING PAINTBRUSH */
+/* FLOATING PAINTBRUSH - Made smaller */
 .floating-brush {
     position: fixed;
     bottom: 131px;
     right: 40px;
-    width: 200px; /* Changed from 140px to 200px to make it bigger */
+    width: 110px; /* Reduced from 140px to 110px to make it smaller */
     height: auto;
     z-index: 9999;
     cursor: pointer;
@@ -863,23 +864,15 @@ body {
     transform: rotate(-6deg);
 }
 
-.floating-brush:hover {
-    transform: rotate(-5deg) scale(1.1); /* Pop out effect */
-}
-
-.floating-brush img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
+/* BRUSH TEXT - Split the difference */
 .brush-text {
     position: absolute;
     top: 50%;
-    left: 105%; /* This moves the text just outside the right edge of the image */
-    transform: translateY(-50%) rotate(5deg); /* Centers it vertically only */
+    /* 75% sits right on the edge of the brush, splitting the difference */
+    left: 75%; 
+    transform: translateY(-50%) rotate(5deg);
     font-family: 'Times New Roman', Times, serif !important;
-    color: white; /* Change to black if your background is light! */
+    color: white; 
     font-size: 14px;
     text-transform: lowercase;
     pointer-events: none;
