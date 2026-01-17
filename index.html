@@ -850,19 +850,19 @@ body {
                 
                 /* FLOATING PAINTBRUSH */
 .floating-brush {
-    position: fixed;
-    bottom: 131px;
-    right: 40px;
-    width: 140px; /* Adjust based on your PNG size */
+    position: absolute; /* Glues it to the book-container */
+    bottom: -60px;      /* Adjust this to move it up or down on the book */
+    right: 1px;        /* Adjust this to move it left or right on the book */
+    width: 120px;       
     height: auto;
-    z-index: 9999;
+    z-index: 100;       /* Ensures it stays on top of the cover */
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-    transform: rotate(-6deg); /* Diagonal tilt */
+    transform: rotate(-6deg);
 }
 
 .floating-brush:hover {
-    transform: rotate(-5deg) scale(1.1); /* Pop out effect */
+    transform: rotate(-5deg) scale(1.1);
 }
 
 .floating-brush img {
@@ -871,9 +871,10 @@ body {
     display: block;
 }
 
+/* Adjust the text position inside the brush image */
 .brush-text {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 45%;
     transform: translate(-50%, -50%) rotate(5deg);
     font-family: 'Times New Roman', Times, serif !important;
@@ -1274,12 +1275,15 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
     </div>
     
     <div class="book-container">
-        <div class="book" id="bookCover">
-            <img src="bookcover.jpg" class="cover-image">
-            <a href="https://open.spotify.com/track/0ZVuznKmgWPjJPWQYfiw18?si=667293411a204de4" target="_blank" class="heart-hotspot"></a>
+    <div class="book">
         </div>
 
-        <div class="bookmarks">
+    <div class="floating-brush" onclick="openPage('fan-art')">
+        <img src="paintbrush.png" alt="Fan Art Brush">
+        <div class="brush-text">fan art</div>
+    </div>
+
+    <div class="bookmarks">
     <div class="bookmark" onclick="openPage('music')"><div class="bookmark-shape">music</div></div>
     <div class="bookmark" onclick="openPage('about')"><div class="bookmark-shape">about</div></div>
     <div class="bookmark" onclick="window.open('https://katsophia.bandcamp.com', '_blank')"><div class="bookmark-shape">store</div></div>
