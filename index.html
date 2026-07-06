@@ -72,35 +72,6 @@
   margin: 0 0 10px 0;
 }
 
-/* Styles the separate phone number link (No bold, matches site pink) */
-.pink-phone-link {
-    color: #D0878B !important; 
-    font-weight: normal !important; 
-    text-decoration: none;
-    white-space: nowrap;
-    font-size: 13px;
-    font-family: 'Times', 'Arial', sans-serif;
-    transition: all 0.2s ease;
-    
-/* Positioning anchors */
-    position: absolute !important;
-    left: 50% !important;
-
-    /* translateY lifts it up, translateX(-50%) forces it perfectly into the dead center */
-    transform: translateY(-344px) translateX(-50%) !important;
-}
-
-.pink-phone-link:hover {
-    opacity: 0.8;
-    text-decoration: underline !important;
-}
-
-/* Clears margins and constrains input size for horizontal bar */
-.popup input[type="email"] {
-    width: 160px !important;
-    margin-bottom: 0 !important;
-}
-
 .popup input[type="email"] {
   width: 100%;
   padding: 8px;
@@ -1763,10 +1734,7 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 
 </style>
 
-<a href="tel:+13239991411" class="pink-phone-link">+1 (323) 999-1411</a>
-
 <!-- MailerLite Popup -->
-
 <div id="popup" class="popup">
   <span id="close-popup" class="close">&times;</span>
 
