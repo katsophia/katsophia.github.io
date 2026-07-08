@@ -374,8 +374,22 @@
   /* ---------- responsive ---------- */
   @media (max-width:580px){
     body {
-      /* Pushes drawing4.png to start roughly below the logo header, and keeps drawing1.png at the absolute bottom */
-      background-position: center 160px, center bottom;
+      /* 1. Stack all 4 drawings as background layers for mobile */
+      background-image: 
+        url('drawing4.png'), 
+        url('drawing2.png'), 
+        url('drawing3.png'), 
+        url('drawing1.png');
+      
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+      background-size: contain, contain, contain, contain;
+      
+      /* 2. Push drawing4 down past the logo, space out 2 & 3, keep 1 at bottom */
+      background-position: 
+        center 240px, 
+        center 35%, 
+        center 70%, 
+        center bottom;
     }
 
     .bio-image{
