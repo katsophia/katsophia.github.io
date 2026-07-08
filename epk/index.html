@@ -24,7 +24,7 @@
   body{
     margin:0;
     background-color:var(--paper);
-    background-image: url('drawing4.PNG'), url('drawing1.PNG');
+    background-image: url('drawing4.png'), url('drawing1.png');
     background-repeat: no-repeat, no-repeat;
     background-size: contain, contain;
     background-position: center top, center bottom;
@@ -344,8 +344,8 @@
 
   .footer-social-icons a{
     display:block;
-    width:24px;
-    height:24px;
+  width: 32px;  /* Changed from 24px */
+  height: 32px; /* Changed from 24px */
     color:var(--ink);
     transition:opacity 0.2s;
   }
@@ -382,6 +382,11 @@
       grid-template-columns:1fr;
     }
   }
+  .photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 </style>
 </head>
 <body>
@@ -406,7 +411,7 @@
   </div>
   <div class="bio">
     <!-- Keep the image at the top of the container -->
-    <img src="right-image-option" alt="Kat" class="bio-image">
+    <img src="right-image-option.jpg" alt="Kat" class="bio-image">
     
     <p>Kat Sophia is an LA-based artist who fuses singer-songwriter sensibilities with indie pop. She got her musical start as a finalist in a songwriting contest hosted by the manager of The Offspring, which inspired her move to Los Angeles to fully pursue her dream.</p>
     <p>Deeply embedded in the local music scene, Kat also works directly alongside a prominent producer for artists like Halsey and Dominic Fike, while covering major acts like Chappell Roan, Taylor Swift, and The Weeknd as a music journalist and photographer.</p>
@@ -493,16 +498,22 @@
     <h2>photos</h2>
   </div>
 
-  <div class="photo-grid">
-    <!-- Ruben 1 -->
-    <div class="photo-tile">katsophia-ruben-01.png</div>
-    
-    <!-- Diego 2 (Centered) -->
-    <div class="photo-tile">katsophia-diego-02.png</div>
-    
-    <!-- Ruben 3 -->
-    <div class="photo-tile">katsophia-ruben-03.png</div>
+<div class="photo-grid">
+  <!-- Ruben 1 -->
+  <div class="photo-tile">
+    <img src="katsophia-ruben-01.png" alt="Kat Sophia by Ruben Duarte">
   </div>
+  
+  <!-- Diego 2 (Centered) -->
+  <div class="photo-tile">
+    <img src="katsophia-diego-02.png" alt="Kat Sophia by Diego Andrade">
+  </div>
+  
+  <!-- Ruben 3 -->
+  <div class="photo-tile">
+    <img src="katsophia-ruben-03.png" alt="Kat Sophia by Ruben Duarte">
+  </div>
+</div>
 
   <p class="download-note">Photos 1 and 3 by Ruben Duarte. Photo 2 by Diego Andrade. <a href="https://www.dropbox.com/scl/fi/k3iolxef9x8je29bh1q1v/Kat-Sophia-Photos.zip?rlkey=1i76664gtbgp3ngmm57wcj8a6&st=og3fym26&dl=0" target="_blank" rel="noopener noreferrer">download ↗</a></p>
 </section>
