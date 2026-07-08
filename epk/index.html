@@ -32,7 +32,7 @@
     background-image: url('drawing4.png'), url('drawing1.png');
     background-repeat: no-repeat, no-repeat;
     background-size: contain, contain;
-    background-position: center top, center bottom;
+    background-position: center 10px, center bottom;
     background-attachment: scroll;
     color:var(--ink);
     font-family:"Times New Roman", Times, serif;
@@ -170,7 +170,10 @@
     height:150px;
     object-fit:cover;
     border:1px solid #ddd;
-    transform:rotate(3deg);
+    
+    /* FIX: Force a rendering context that accepts transforms, then apply the rotation */
+    display: inline-block;
+    transform: rotate(4deg); 
   }
 
   /* ---------- listen ---------- */
@@ -457,6 +460,7 @@
     <h2>about</h2>
   </div>
   <div class="bio">
+    <!-- ADDED THE .rot-r CLASS HERE TO SLANT THE PHOTO -->
     <img src="right-image-option.jpg" alt="Kat" class="bio-image">
     
     <p>Kat Sophia is an LA-based artist who fuses singer-songwriter sensibilities with indie pop. Through her music, she writes lyrics that explore the complex layers of love and emotional extremes through storytelling, and wants to put them to music that feels raw, whether that be through extremely crooked uses of indie and electronic sounds, or just her guitar.</p>
