@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kat Sophia - EPK</title>
+<title>Kat Sophia — Electronic Press Kit</title>
 
 <style>
   :root{
@@ -244,8 +244,8 @@
 
   .photo-tile{
     aspect-ratio:4/5;
-    background:none; /* Removed border background */
-    border:none;     /* Removed dark border */
+    background:none; 
+    border:none;     
     display:flex;
     align-items:center;
     justify-content:center;
@@ -253,7 +253,7 @@
     font-size:12px;
     text-align:center;
     color:var(--kraft-dark);
-    padding:0;       /* Removed inner padding */
+    padding:0;       
   }
 
   .photo-tile img {
@@ -369,7 +369,10 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:580px){
-    /* Removed background-image:none; to let drawings display on mobile devices */
+    body {
+      /* Pushes drawing4.png to start roughly below the logo header, and keeps drawing1.png at the absolute bottom */
+      background-position: center 160px, center bottom;
+    }
 
     .bio-image{
       float:none;
@@ -377,10 +380,9 @@
       margin:0 auto 16px;
     }
 
-    /* Kept at repeat(3, 1fr) so photos stay locked into 3 across even on screens under 580px width */
     .photo-grid{
       grid-template-columns:repeat(3, 1fr);
-      gap: 8px; /* Slightly lowered space between cards on screens that are very tight */
+      gap: 8px; 
     }
 
     .video-grid,
@@ -513,7 +515,7 @@
   </div>
 </div>
 
-  <p class="download-note">Photos 1 and 3 by Ruben Duarte. Photo 2 by Diego Andrade. <a href="https://www.dropbox.com/scl/fi/k3iolxef9x8je29bh1q1v/Kat-Sophia-Photos.zip?rlkey=1i76664gtbgp3ngmm57wcj8a6&st=og3fym26&dl=0" target="_blank" rel="noopener noreferrer">download</a></p>
+  <p class="download-note">Photos 1 and 3 by Ruben Duarte. Photo 2 by Diego Andrade. <a href="https://www.dropbox.com/scl/fi/k3iolxef9x8je29bh1q1v/Kat-Sophia-Photos.zip?rlkey=1i76664gtbgp3ngmm57wcj8a6&st=og3fym26&dl=0" target="_blank" rel="noopener noreferrer">download ↗</a></p>
 </section>
 
   <!-- ============ LIVE ============ -->
