@@ -17,7 +17,7 @@
     --sage:#7C9473;
   }
 
-* {
+  * {
     box-sizing: border-box;
   }
 
@@ -306,6 +306,21 @@
     font-size:13px;
   }
 
+  /* ---------- fan map ---------- */
+  .padlet-embed-container {
+    width: 100%;
+    height: 480px;
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .padlet-embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
   /* ---------- connect ---------- */
   .connect-grid{
     display:grid;
@@ -420,6 +435,10 @@
     .video-grid,
     .connect-grid{
       grid-template-columns:1fr;
+    }
+
+    .padlet-embed-container {
+      height: 380px;
     }
   }
 </style>
@@ -552,7 +571,7 @@
 </section>
 
   <!-- ============ LIVE ============ -->
-  <section class="card rot-r">
+  <section class="card rot-rs">
     <div class="tape pink" style="top:-14px; left:40px; transform:rotate(3deg);"></div>
     <div class="section-head">
       <h2>live</h2>
@@ -580,8 +599,24 @@
     </div>
   </section>
 
-  <!-- ============ CONNECT / CONTACT ============ -->
+  <!-- ============ FAN MAP ============ -->
   <section class="card rot-l">
+    <div class="tape sage" style="top:-14px; right:40px; transform:rotate(-2deg);"></div>
+    <div class="section-head">
+      <h2>fan map</h2>
+    </div>
+
+    <p style="margin: 0 0 16px; font-size: 14.5px;">
+      Here is a fan map where listeners have added themselves to from different parts of the world, from visiting my website:
+    </p>
+
+    <div class="padlet-embed-container">
+      <iframe src="https://padlet.com/embed/6l0ha8432kh3uy01" allow="camera; microphone; geolocation"></iframe>
+    </div>
+  </section>
+
+  <!-- ============ CONNECT / CONTACT ============ -->
+  <section class="card rot-r">
     <div class="tape pink" style="top:-14px; left:50%; margin-left:-35px; transform:rotate(3deg);"></div>
     <div class="section-head">
       <h2>get in touch</h2>
@@ -621,8 +656,8 @@
   <!-- ============ FOOTER ICONS ============ -->
   <footer>
     <div class="footer-social-icons">
-          <!-- Spotify -->
-      <a href="https://katsophia.com/" target="_blank" aria-label="Spotify">
+          <!-- Website -->
+      <a href="https://katsophia.com/" target="_blank" aria-label="Website">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <g fill="none" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="50" cy="50" r="47" />
