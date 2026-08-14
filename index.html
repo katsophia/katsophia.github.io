@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +50,7 @@
   position: fixed;
   top: 18px;
   right: 25px;
-  background: #fff;
+  /* background: #fff; */
   border: 0px solid #000;
   padding: 0px;
   box-shadow: 0 0px 0px rgba(0,0,0,0.2);
@@ -115,7 +116,7 @@ body {
     font-family: Garamond, 'Times New Roman', serif;
     background-image: url('KS_BG4.jpg'); /* put your image file here */
     background-size: cover;
-    background-position: center;
+    background-position: 25%;
     background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
@@ -123,6 +124,13 @@ body {
     align-items: center;
     overflow-x: hidden;
     padding: 20px;
+}
+
+@media (max-width: 1340px) {
+    body {
+        background-image: url('KS_BG4_notext.jpg');
+        background-position-x: 61%;
+    }
 }
 
         .social-icons {
@@ -189,19 +197,6 @@ body {
     z-index: 1; /* sits above book texture, below everything else */
 
 }
-        body {
-    font-family: Garamond, 'Times New Roman', serif;
-    background-image: url('KS_BG4.jpg'); /* put your image file here */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    padding: 20px;
-}
 
         .book-container {
             position: relative;
@@ -209,14 +204,13 @@ body {
             height: 458px;
         }
 
-        @media (max-width: 768px) {
-            @media (max-width: 768px) {
+        @media (max-width: 768px) or (max-height: 600px) {
     .book-container {
         /* This keeps the desktop size as the "base" so proportions don't break */
         width: 350px !important;
         height: 458px !important;
 
-        transform: scale(0.7) !important; 
+        transform: scale(0.8) !important; 
 
         /* 1. Change to center center */
         transform-origin: center center !important;
@@ -226,7 +220,6 @@ body {
         left: -28px !important; 
 
         position: relative;
-
     }
 
     /* We clear out the old mobile bookmark overrides so they use desktop styles */
@@ -243,7 +236,6 @@ body {
     .bookmark-shape {
         font-size: 14.2px !important; /* Matches desktop layout */
     }
-}
         }
 
         .book {
@@ -1810,6 +1802,13 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
         position: static;
         width: 100% !important;
       }
+
+      @media screen and (max-height: 600px) {
+        #mlb2-34465215.ml-form-embedContainer {
+            transform: scale(0.7);
+            transform-origin: top right;
+        }
+      }
       #mlb2-34465215.ml-form-embedContainer h4,
       #mlb2-34465215.ml-form-embedContainer p,
       #mlb2-34465215.ml-form-embedContainer span,
@@ -2355,7 +2354,7 @@ a, button, .bookmark, .music-link-item, .social-icons a, iframe {
 
     width: 300px !important;        
     max-width: 280px !important;     /* slightly wider */
-    transform: scale(0.45);          /* keeps everything proportionally smaller */
+    transform: scale(0.60);          /* keeps everything proportionally smaller */
     transform-origin: top right;    
 
     background: transparent !important;
